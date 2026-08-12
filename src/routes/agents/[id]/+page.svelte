@@ -23,6 +23,7 @@
 	import Heatmap from '$lib/components/charts/Heatmap.svelte';
 	import HireModal from '$lib/components/hire/HireModal.svelte';
 	import CountUp from '$lib/components/ui/CountUp.svelte';
+	import TokenIcon from '$lib/components/ui/TokenIcon.svelte';
 
 	let { data } = $props();
 	const agent = $derived(data.agent);
@@ -236,8 +237,14 @@
 				</div>
 				<p class="mb-4 text-[12px] text-white/50">{agent.venue}</p>
 				{#if pool}
-					<div class="mb-3 flex items-baseline justify-between">
-						<span class="text-[12px] text-white/50">{pool.label}</span>
+					<div class="mb-3 flex items-center justify-between">
+						<span class="flex items-center gap-2 text-[12px] text-white/50">
+							<span class="flex items-center -space-x-2">
+								<TokenIcon symbol={pool.token0} size={22} />
+								<TokenIcon symbol={pool.token1} size={22} />
+							</span>
+							{pool.label}
+						</span>
 						<span class="tabular text-xl font-bold">{usd(pool.priceUsd)}</span>
 					</div>
 					<div class="flex items-baseline justify-between text-[12px] text-white/50">
@@ -245,14 +252,20 @@
 					</div>
 				{/if}
 				{#if feed && !pool}
-					<div class="mb-3 flex items-baseline justify-between">
-						<span class="text-[12px] text-white/50">{feed.label}</span>
+					<div class="mb-3 flex items-center justify-between">
+						<span class="flex items-center gap-2 text-[12px] text-white/50">
+							<TokenIcon symbol={feed.symbol} size={22} />
+							{feed.label}
+						</span>
 						<span class="tabular text-xl font-bold">{usd(feed.price)}</span>
 					</div>
 				{/if}
 				{#each venusMarkets as v (v.symbol)}
-					<div class="flex items-baseline justify-between border-t border-white/10 py-2.5 text-[13px] first:border-0">
-						<span class="text-white/60">{v.label} supply</span>
+					<div class="flex items-center justify-between border-t border-white/10 py-2.5 text-[13px] first:border-0">
+						<span class="flex items-center gap-2 text-white/60">
+							<TokenIcon symbol={v.underlying} size={20} />
+							{v.label} supply
+						</span>
 						<span class="tabular font-bold text-good">{v.supplyApy.toFixed(2)}%</span>
 					</div>
 				{/each}

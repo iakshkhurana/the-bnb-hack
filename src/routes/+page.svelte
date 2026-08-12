@@ -14,6 +14,7 @@
 	import AreaChart from '$lib/components/charts/AreaChart.svelte';
 	import Sparkline from '$lib/components/charts/Sparkline.svelte';
 	import CountUp from '$lib/components/ui/CountUp.svelte';
+	import TokenIcon from '$lib/components/ui/TokenIcon.svelte';
 
 	$effect(() => market.subscribe());
 
@@ -99,7 +100,8 @@
 		<div class="mb-1 flex flex-wrap items-center justify-between gap-3">
 			<div>
 				<p class="flex items-center gap-2 text-[12px] font-medium text-white/50">
-					BNB / USD <Badge kind="live" class="border-white/10 bg-white/10" />
+					<TokenIcon symbol="BNB" size={18} /> BNB / USD
+					<Badge kind="live" class="border-white/10 bg-white/10" />
 				</p>
 				<div class="mt-1 flex items-baseline gap-2.5">
 					<span class="tabular text-3xl font-bold">
@@ -226,7 +228,7 @@
 			<ul class="divide-y divide-line">
 				{#each market.snapshot.venus as v (v.symbol)}
 					<li class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
-						<span class="grid size-8 place-items-center rounded-full bg-page text-[11px] font-bold">{v.underlying}</span>
+						<TokenIcon symbol={v.underlying} size={30} />
 						<span class="text-[13px] font-medium">{v.label}</span>
 						<span class="tabular ml-auto text-[15px] font-bold text-good-text">{v.supplyApy.toFixed(2)}%</span>
 					</li>
@@ -240,9 +242,12 @@
 			<ul class="divide-y divide-line">
 				{#each market.snapshot.pools as p (p.id)}
 					<li class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
-						<span class="grid size-8 place-items-center rounded-full bg-page text-[10px] font-bold">{p.feeTier}</span>
+						<span class="flex items-center -space-x-2.5">
+							<TokenIcon symbol={p.token0} size={30} class="ring-2 ring-card rounded-full" />
+							<TokenIcon symbol={p.token1} size={30} class="ring-2 ring-card rounded-full" />
+						</span>
 						<div>
-							<p class="text-[13px] font-medium">{p.label}</p>
+							<p class="text-[13px] font-medium">{p.label} <span class="text-[10px] font-bold text-faint">{p.feeTier}</span></p>
 							<p class="tabular text-[11px] text-faint">tick {p.tick}</p>
 						</div>
 						<span class="tabular ml-auto text-[15px] font-bold">{usd(p.priceUsd)}</span>
