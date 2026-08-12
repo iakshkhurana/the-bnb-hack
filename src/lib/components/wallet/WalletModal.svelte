@@ -18,10 +18,21 @@
 		POPULAR.filter((p) => !detectedNames.some((n) => n.includes(p.match)))
 	);
 
+	/** phone browsers have no extensions: deep-link into the wallet app's dapp browser */
+	const mobileNoWallet = $derived(wallet.isMobile && !wallet.options.length && !wallet.injected);
+
+	function openInTrust() {
+		location.href = `https://link.trustwallet.com/open_url?coin_id=20000714&url=${encodeURIComponent(location.href)}`;
+	}
+	function openInMetaMask() {
+		location.href = `https://metamask.app.link/dapp/${location.host}${location.pathname}`;
+	}
+
 	let showMore = $state(false);
 	$effect(() => {
-		// nothing detected: the install list IS the main content
-		if (wallet.modalOpen) showMore = wallet.options.length === 0 && !wallet.injected;
+		// desktop with nothing detected: the install list IS the main content
+		if (wallet.modalOpen)
+			showMore = wallet.options.length === 0 && !wallet.injected && !wallet.isMobile;
 	});
 </script>
 
@@ -80,19 +91,53 @@
 					disabled={wallet.connecting}
 					class="flex w-full items-center gap-3 rounded-2xl border border-line bg-page p-3 text-left transition-all hover:border-cta hover:bg-accent-tint active:scale-[0.99] disabled:opacity-50"
 				>
-					<span class="grid size-8 place-items-center rounded-lg bg-cta text-cta-fg">
-						<Icon name="wallet" size={16} />
-					</span>
-					<span class="text-[14px] font-semibold">Browser wallet</span>
+					{#if wallet.injectedInfo.key}
+						<WalletBrandIcon name={wallet.injectedInfo.key} size={30} />
+					{:else}
+						<span class="grid size-8 place-items-center rounded-lg bg-cta text-cta-fg">
+							<Icon name="wallet" size={16} />
+						</span>
+					{/if}
+					<span class="text-[14px] font-semibold">{wallet.injectedInfo.name}</span>
 					<span class="ml-auto rounded-full bg-good/15 px-2 py-0.5 text-[10px] font-bold text-good-text">
 						DETECTED
 					</span>
 				</button>
+			{:else if mobileNoWallet}
+				<!-- phone: open this dapp inside the wallet app's browser -->
+				<div class="space-y-2">
+					<button
+						onclick={openInTrust}
+						class="flex w-full items-center gap-3 rounded-2xl border border-line bg-page p-3 text-left transition-all hover:border-cta active:scale-[0.99]"
+					>
+						<WalletBrandIcon name="trust" size={30} />
+						<span>
+							<span class="block text-[14px] font-semibold">Open in Trust Wallet</span>
+							<span class="block text-[11px] text-faint">Launches HIVE inside the app</span>
+						</span>
+						<Icon name="chevron-right" size={15} class="ml-auto text-faint" />
+					</button>
+					<button
+						onclick={openInMetaMask}
+						class="flex w-full items-center gap-3 rounded-2xl border border-line bg-page p-3 text-left transition-all hover:border-cta active:scale-[0.99]"
+					>
+						<WalletBrandIcon name="metamask" size={30} />
+						<span>
+							<span class="block text-[14px] font-semibold">Open in MetaMask</span>
+							<span class="block text-[11px] text-faint">Launches HIVE inside the app</span>
+						</span>
+						<Icon name="chevron-right" size={15} class="ml-auto text-faint" />
+					</button>
+					<p class="px-1 pt-1 text-[11px] leading-relaxed text-faint">
+						Phone browsers can't talk to wallet apps directly, so HIVE opens inside your wallet's
+						built-in browser and connects there.
+					</p>
+				</div>
 			{/if}
 
 			<!-- other popular wallets: faded icons, install links -->
 			{#if notInstalled.length}
-				{#if wallet.options.length || wallet.injected}
+				{#if wallet.options.length || wallet.injected || mobileNoWallet}
 					<button
 						onclick={() => (showMore = !showMore)}
 						class="mt-3 flex w-full items-center justify-between rounded-2xl border border-line px-4 py-3 text-[13px] font-semibold text-sub transition-colors hover:border-line-strong hover:text-ink"

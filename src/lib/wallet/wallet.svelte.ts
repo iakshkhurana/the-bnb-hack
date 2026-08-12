@@ -52,6 +52,23 @@ class Wallet {
 		return (window as unknown as { ethereum?: EthProvider }).ethereum ?? null;
 	}
 
+	/** identify a bare injected provider (wallet in-app browsers rarely speak EIP-6963) */
+	get injectedInfo(): { name: string; key: string | null } {
+		const eth = this.injected as unknown as Record<string, unknown> | null;
+		if (!eth) return { name: 'Browser wallet', key: null };
+		if (eth.isTrust || eth.isTrustWallet) return { name: 'Trust Wallet', key: 'trust' };
+		if (eth.isOkxWallet || eth.isOKExWallet) return { name: 'OKX Wallet', key: 'okx' };
+		if (eth.isPhantom) return { name: 'Phantom', key: 'phantom' };
+		if (eth.isBinance) return { name: 'Binance Wallet', key: 'binance' };
+		if (eth.isMetaMask) return { name: 'MetaMask', key: 'metamask' };
+		return { name: 'Browser wallet', key: null };
+	}
+
+	get isMobile(): boolean {
+		if (!browser) return false;
+		return /android|iphone|ipad|ipod/i.test(navigator.userAgent);
+	}
+
 	/** the provider backing the current session (for signing) */
 	get provider(): EthProvider | null {
 		return this.#active ?? this.injected;
@@ -74,11 +91,11 @@ class Wallet {
 		return this.#connect(option.provider, option.info.name, option.info.icon);
 	}
 
-	/** legacy single-injected fallback (no EIP-6963 wallets announced) */
+	/** single-injected fallback (wallet in-app browsers, no EIP-6963) */
 	async connectInjected(): Promise<boolean> {
 		const eth = this.injected;
 		if (!eth) return false;
-		return this.#connect(eth, 'Injected wallet', null);
+		return this.#connect(eth, this.injectedInfo.name, null);
 	}
 
 	connectDemo(): void {
