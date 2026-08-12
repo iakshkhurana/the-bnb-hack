@@ -4,6 +4,7 @@
 	import { page } from '$app/state';
 	import { fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
+	import { theme } from '$lib/stores/theme.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import WalletButton from '$lib/components/wallet/WalletButton.svelte';
 
@@ -21,9 +22,9 @@
 
 	const activeIndex = $derived(nav.findIndex((n) => active(n.href)));
 
-	// ── scroll-aware navbar ─────────────────────────────────────────
+	// ── scroll-aware navbar: starts generous, condenses on scroll ──
 	let scrollY = $state(0);
-	const scrolled = $derived(scrollY > 24);
+	const scrolled = $derived(scrollY > 32);
 
 	// ── sliding selection pill (top nav) ────────────────────────────
 	let navWrap = $state<HTMLElement | null>(null);
@@ -51,22 +52,22 @@
 	<!-- ═══ Floating glass navbar ═══ -->
 	<header class="fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-5">
 		<div
-			class="mx-auto flex max-w-[1240px] items-center gap-3 rounded-full bg-white/75 shadow-glass backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 [transition-timing-function:var(--ease-out-quart)] {scrolled
-				? 'h-[52px] max-w-[1080px] px-2.5 sm:px-3'
-				: 'h-16 px-3 sm:px-4'}"
+			class="mx-auto flex items-center gap-3 rounded-full bg-card/80 shadow-glass backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 [transition-timing-function:var(--ease-out-quart)] {scrolled
+				? 'h-[52px] max-w-[960px] px-2.5 sm:px-3'
+				: 'h-[72px] max-w-[1140px] px-3.5 sm:px-5'}"
 		>
 			<a href="/" class="group flex shrink-0 items-center gap-2.5 pl-1">
 				<span
-					class="grid place-items-center rounded-xl bg-ink text-white transition-all duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-[-8deg] {scrolled
+					class="grid place-items-center rounded-xl bg-cta text-cta-fg transition-all duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-[-8deg] {scrolled
 						? 'size-8'
-						: 'size-9'}"
+						: 'size-10'}"
 				>
-					<Icon name="hive" size={scrolled ? 17 : 20} strokeWidth={1.6} />
+					<Icon name="hive" size={scrolled ? 17 : 21} strokeWidth={1.6} />
 				</span>
-				<span class="text-[16px] font-bold tracking-tight">HIVE</span>
+				<span class="font-bold tracking-tight transition-all duration-500 {scrolled ? 'text-[15px]' : 'text-[17px]'}">HIVE</span>
 				<span
-					class="mt-0.5 hidden rounded-full border border-line bg-white px-2 py-0.5 text-[9px] font-bold tracking-[0.08em] text-sub transition-opacity duration-300 md:inline {scrolled
-						? 'opacity-0'
+					class="mt-0.5 hidden rounded-full border border-line bg-card px-2 py-0.5 text-[9px] font-bold tracking-[0.08em] text-sub transition-all duration-300 md:inline {scrolled
+						? 'w-0 scale-90 overflow-hidden border-transparent px-0 opacity-0'
 						: 'opacity-100'}"
 				>
 					BNB CHAIN
@@ -74,9 +75,9 @@
 			</a>
 
 			<nav bind:this={navWrap} class="relative ml-2 hidden items-center md:flex">
-				<!-- sliding black pill -->
+				<!-- sliding selection pill -->
 				<span
-					class="absolute top-1/2 h-9 -translate-y-1/2 rounded-full bg-ink transition-all duration-[420ms] [transition-timing-function:var(--ease-spring)]"
+					class="absolute top-1/2 h-9 -translate-y-1/2 rounded-full bg-cta transition-all duration-[420ms] [transition-timing-function:var(--ease-spring)]"
 					style="left: {pill.x}px; width: {pill.w}px; opacity: {pill.on ? 1 : 0}"
 					aria-hidden="true"
 				></span>
@@ -87,7 +88,7 @@
 						class="relative z-10 rounded-full px-4 py-2 text-[13px] font-semibold transition-colors duration-300 {active(
 							item.href
 						)
-							? 'text-white'
+							? 'text-cta-fg'
 							: 'text-sub hover:text-ink'}"
 					>
 						{item.label}
@@ -96,11 +97,19 @@
 			</nav>
 
 			<div class="ml-auto flex items-center gap-2">
+				<button
+					onclick={() => theme.toggle()}
+					class="grid size-9 place-items-center rounded-full border border-line bg-card/80 text-sub transition-all duration-200 hover:scale-105 hover:text-ink active:scale-95"
+					aria-label="Toggle dark mode"
+					title={theme.mode === 'light' ? 'Switch to dark' : 'Switch to light'}
+				>
+					<Icon name={theme.mode === 'light' ? 'moon' : 'sun'} size={15} />
+				</button>
 				<a
 					href="https://github.com/iakshkhurana/the-bnb-hack"
 					target="_blank"
 					rel="noreferrer"
-					class="hidden size-9 place-items-center rounded-full border border-line bg-white/80 text-sub transition-all duration-200 hover:scale-105 hover:text-ink active:scale-95 sm:grid"
+					class="hidden size-9 place-items-center rounded-full border border-line bg-card/80 text-sub transition-all duration-200 hover:scale-105 hover:text-ink active:scale-95 sm:grid"
 					aria-label="GitHub repository"
 				>
 					<Icon name="external" size={14} />
@@ -112,12 +121,11 @@
 
 	<!-- ═══ Floating icon rail (desktop) ═══ -->
 	<aside
-		class="fixed top-1/2 left-4 z-40 hidden -translate-y-1/2 rounded-full bg-white/85 p-2 shadow-rail backdrop-blur-xl lg:block"
+		class="fixed top-1/2 left-4 z-40 hidden -translate-y-1/2 rounded-full bg-card/90 p-2 shadow-rail backdrop-blur-xl lg:block"
 	>
 		<div class="relative flex flex-col items-center gap-1.5">
-			<!-- sliding black disc -->
 			<span
-				class="absolute left-0 size-10 rounded-full bg-ink transition-transform duration-[420ms] [transition-timing-function:var(--ease-spring)]"
+				class="absolute left-0 size-10 rounded-full bg-cta transition-transform duration-[420ms] [transition-timing-function:var(--ease-spring)]"
 				style="transform: translateY({Math.max(activeIndex, 0) * 46}px); opacity: {activeIndex >= 0
 					? 1
 					: 0}"
@@ -131,7 +139,7 @@
 					class="relative z-10 grid size-10 place-items-center rounded-full transition-all duration-300 {active(
 						item.href
 					)
-						? 'text-white'
+						? 'text-cta-fg'
 						: 'text-sub hover:scale-110 hover:text-ink'}"
 				>
 					<Icon name={item.icon} size={18} />
@@ -142,11 +150,11 @@
 
 	<!-- ═══ Mobile bottom nav ═══ -->
 	<nav
-		class="fixed bottom-4 left-1/2 z-40 -translate-x-1/2 rounded-full bg-white/90 p-1.5 shadow-rail backdrop-blur-xl lg:hidden"
+		class="fixed bottom-4 left-1/2 z-40 -translate-x-1/2 rounded-full bg-card/95 p-1.5 shadow-rail backdrop-blur-xl lg:hidden"
 	>
 		<div class="relative flex items-center gap-1">
 			<span
-				class="absolute left-0 size-10 rounded-full bg-ink transition-transform duration-[420ms] [transition-timing-function:var(--ease-spring)]"
+				class="absolute left-0 size-10 rounded-full bg-cta transition-transform duration-[420ms] [transition-timing-function:var(--ease-spring)]"
 				style="transform: translateX({Math.max(activeIndex, 0) * 44}px); opacity: {activeIndex >= 0
 					? 1
 					: 0}"
@@ -159,7 +167,7 @@
 					class="relative z-10 grid size-10 place-items-center rounded-full transition-colors duration-300 {active(
 						item.href
 					)
-						? 'text-white'
+						? 'text-cta-fg'
 						: 'text-sub'}"
 				>
 					<Icon name={item.icon} size={18} />
@@ -168,7 +176,7 @@
 		</div>
 	</nav>
 
-	<main class="mx-auto max-w-[1280px] px-4 pt-[92px] pb-28 sm:px-6 lg:pb-16 lg:pl-20">
+	<main class="mx-auto max-w-[1140px] px-4 pt-[104px] pb-28 sm:px-6 lg:pb-16 lg:pl-16">
 		{#key page.url.pathname}
 			<div in:fly={{ y: 14, duration: 420, easing: cubicOut, delay: 40 }}>
 				{@render children()}
@@ -178,7 +186,7 @@
 
 	<footer class="border-t border-line">
 		<div
-			class="mx-auto flex max-w-[1280px] flex-wrap items-center gap-x-6 gap-y-2 px-4 py-6 text-[12px] text-sub sm:px-6 lg:pl-20"
+			class="mx-auto flex max-w-[1140px] flex-wrap items-center gap-x-6 gap-y-2 px-4 py-6 text-[12px] text-sub sm:px-6 lg:pl-16"
 		>
 			<span class="font-semibold text-ink">HIVE</span>
 			<span>The agent labor market for BNB Chain</span>

@@ -17,6 +17,10 @@
 	--color-line: rgb(11 12 15 / 0.07);
 	--color-line-strong: rgb(11 12 15 / 0.12);
 
+	/* primary action — black in light, Binance yellow in dark */
+	--color-cta: #0b0c0f;
+	--color-cta-fg: #ffffff;
+
 	/* validated blue ramp (data + accent) */
 	--color-accent: #2a78d6;
 	--color-accent-deep: #0d366b;
@@ -63,6 +67,48 @@
 	}
 }
 
+/* non-utility chart vars */
+:root {
+	--spark-stroke: #2a78d6;
+	--heat-zero: #eef0f3;
+}
+
+/* ═══ Dark mode — Binance black & yellow ═══ */
+:root[data-theme='dark'] {
+	--color-page: #0b0e11;
+	--color-card: #181a20;
+	--color-night: #1e2329;
+	--color-night-2: #2b3139;
+
+	--color-ink: #eaecef;
+	--color-sub: #a7b1bc;
+	--color-faint: #676f79;
+	--color-line: rgb(255 255 255 / 0.08);
+	--color-line-strong: rgb(255 255 255 / 0.16);
+
+	--color-cta: #f0b90b;
+	--color-cta-fg: #181a20;
+
+	--color-accent: #f0b90b;
+	--color-accent-deep: #f8d33a;
+	--color-accent-soft: #d9a509;
+	--color-accent-tint: rgb(240 185 11 / 0.14);
+
+	--color-good: #2ebd85;
+	--color-good-text: #2ebd85;
+	--color-crit: #f6465d;
+
+	--shadow-card: 0 0 0 1px rgb(255 255 255 / 0.06), 0 8px 24px -12px rgb(0 0 0 / 0.5);
+	--shadow-lift: 0 0 0 1px rgb(255 255 255 / 0.09), 0 16px 40px -12px rgb(0 0 0 / 0.6);
+	--shadow-rail: 0 0 0 1px rgb(255 255 255 / 0.08), 0 16px 40px -12px rgb(0 0 0 / 0.65);
+	--shadow-glass:
+		inset 0 1px 0 rgb(255 255 255 / 0.06), 0 0 0 1px rgb(255 255 255 / 0.08),
+		0 16px 32px -12px rgb(0 0 0 / 0.55);
+
+	--spark-stroke: #f0b90b;
+	--heat-zero: #2b3139;
+}
+
 html {
 	scroll-behavior: smooth;
 }
@@ -74,25 +120,24 @@ body {
 	-webkit-font-smoothing: antialiased;
 	font-feature-settings: 'cv11';
 	letter-spacing: -0.011em;
+	transition: background-color 0.3s ease;
 }
 
 ::selection {
-	background: var(--color-ink);
-	color: #ffffff;
+	background: var(--color-cta);
+	color: var(--color-cta-fg);
 }
 
 .tabular {
 	font-variant-numeric: tabular-nums;
 }
 
-/* intentional focus for keyboard users, invisible for pointer */
 :focus-visible {
-	outline: 2px solid var(--color-ink);
+	outline: 2px solid var(--color-cta);
 	outline-offset: 2px;
 	border-radius: 8px;
 }
 
-/* staggered entrance helper — apply with inline animation-delay */
 .rise {
 	animation: var(--animate-rise);
 }
