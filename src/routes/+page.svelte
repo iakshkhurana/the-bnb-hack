@@ -81,10 +81,10 @@
 			yield routing and liquidation protection, side by side.
 		</p>
 		<div class="mt-7 flex flex-wrap gap-3">
-			<Button variant="primary" size="lg" href="/marketplace">
+			<Button variant="primary" size="lg" href="/marketplace" class="max-sm:flex-1">
 				Explore the marketplace <Icon name="arrow-up-right" size={16} />
 			</Button>
-			<Button variant="ghost" size="lg" href="/proof">See the proof</Button>
+			<Button variant="ghost" size="lg" href="/proof" class="max-sm:flex-1">See the proof</Button>
 		</div>
 		<div class="mt-7 flex flex-wrap items-center gap-2">
 			<Badge kind="live" />
@@ -127,9 +127,11 @@
 </section>
 
 <!-- ═══ Stat tiles ═══ -->
-<section class="rise grid grid-cols-2 gap-4 [animation-delay:200ms] lg:grid-cols-4">
+<section
+	class="rise gap-4 [animation-delay:200ms] max-sm:snap-row max-sm:-mx-4 max-sm:flex max-sm:overflow-x-auto max-sm:px-4 max-sm:pb-2 sm:grid sm:grid-cols-2 lg:grid-cols-4"
+>
 	{#each [{ icon: 'wallet', label: 'Under agent management', value: totalTvl, format: (v: number) => usd(v, { compact: true }) }, { icon: 'bolt', label: 'Actions last 30 days', value: totalActions, format: (v: number) => num(v, 0) }, { icon: 'users', label: 'Active hirers', value: totalUsers, format: (v: number) => num(v, 0) }, { icon: 'gas', label: 'Avg gas per action', value: avgGas, format: (v: number) => usd(v, { decimals: 2 }) }] as stat (stat.label)}
-		<Card>
+		<Card class="max-sm:min-w-[70%] max-sm:snap-start">
 			<div class="flex items-center gap-2 text-sub">
 				<Icon name={stat.icon} size={15} />
 				<p class="text-[12px] font-medium">{stat.label}</p>

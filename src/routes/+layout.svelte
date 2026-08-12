@@ -13,10 +13,10 @@
 	let { children } = $props();
 
 	const nav = [
-		{ href: '/', icon: 'home', label: 'Home' },
-		{ href: '/marketplace', icon: 'market', label: 'Marketplace' },
-		{ href: '/dashboard', icon: 'gauge', label: 'Mission Control' },
-		{ href: '/proof', icon: 'proof', label: 'Proof' }
+		{ href: '/', icon: 'home', label: 'Home', short: 'Home' },
+		{ href: '/marketplace', icon: 'market', label: 'Marketplace', short: 'Market' },
+		{ href: '/dashboard', icon: 'gauge', label: 'Mission Control', short: 'Control' },
+		{ href: '/proof', icon: 'proof', label: 'Proof', short: 'Proof' }
 	];
 
 	const active = (href: string) =>
@@ -140,14 +140,15 @@
 		</div>
 	</aside>
 
-	<!-- ═══ Mobile bottom nav ═══ -->
+	<!-- ═══ Mobile app dock ═══ -->
 	<nav
-		class="fixed bottom-4 left-1/2 z-40 -translate-x-1/2 rounded-full bg-card/95 p-1.5 shadow-rail backdrop-blur-xl lg:hidden"
+		class="fixed left-1/2 z-40 -translate-x-1/2 rounded-[24px] bg-card/95 p-1.5 shadow-rail backdrop-blur-xl lg:hidden"
+		style="bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px))"
 	>
-		<div class="relative flex items-center gap-1">
+		<div class="relative flex items-center">
 			<span
-				class="absolute left-0 size-10 rounded-full bg-cta transition-transform duration-[420ms] [transition-timing-function:var(--ease-spring)]"
-				style="transform: translateX({Math.max(activeIndex, 0) * 44}px); opacity: {activeIndex >= 0
+				class="absolute left-1.5 h-12 w-[68px] rounded-[18px] bg-cta transition-transform duration-[420ms] [transition-timing-function:var(--ease-spring)]"
+				style="transform: translateX({Math.max(activeIndex, 0) * 68 - 6}px); opacity: {activeIndex >= 0
 					? 1
 					: 0}"
 				aria-hidden="true"
@@ -156,13 +157,14 @@
 				<a
 					href={item.href}
 					aria-label={item.label}
-					class="relative z-10 grid size-10 place-items-center rounded-full transition-colors duration-300 {active(
+					class="relative z-10 flex h-12 w-[68px] flex-col items-center justify-center gap-0.5 rounded-[18px] transition-colors duration-300 active:scale-95 {active(
 						item.href
 					)
 						? 'text-cta-fg'
 						: 'text-sub'}"
 				>
-					<Icon name={item.icon} size={18} />
+					<Icon name={item.icon} size={17} />
+					<span class="text-[9px] font-bold tracking-wide">{item.short}</span>
 				</a>
 			{/each}
 		</div>

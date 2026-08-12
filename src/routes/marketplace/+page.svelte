@@ -103,10 +103,12 @@
 
 	<!-- filters row -->
 	<div class="mb-6 flex flex-wrap items-center gap-3">
-		<div class="flex flex-wrap gap-1.5">
+		<div
+			class="flex gap-1.5 max-sm:snap-row max-sm:-mx-4 max-sm:flex-nowrap max-sm:overflow-x-auto max-sm:px-4 max-sm:py-1 sm:flex-wrap"
+		>
 			<button
 				onclick={() => setCategory('all')}
-				class="rounded-full px-4 py-1.5 text-[13px] font-semibold transition-colors {category === 'all'
+				class="shrink-0 rounded-full px-4 py-1.5 text-[13px] font-semibold transition-colors max-sm:snap-start {category === 'all'
 					? 'bg-cta text-cta-fg'
 					: 'border border-line bg-card text-sub hover:text-ink'}"
 			>
@@ -115,7 +117,7 @@
 			{#each CATEGORIES as c (c)}
 				<button
 					onclick={() => setCategory(c)}
-					class="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-semibold transition-colors {category ===
+					class="flex shrink-0 items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-semibold transition-colors max-sm:snap-start {category ===
 					c
 						? 'bg-cta text-cta-fg'
 						: 'border border-line bg-card text-sub hover:text-ink'}"

@@ -119,6 +119,18 @@ html {
 	scroll-behavior: smooth;
 	scrollbar-width: thin;
 	scrollbar-color: var(--color-cta) transparent;
+	overscroll-behavior-y: none;
+	-webkit-text-size-adjust: 100%;
+}
+
+/* app-like horizontal snap rows on mobile, scrollbar hidden */
+.snap-row {
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+	-webkit-overflow-scrolling: touch;
+}
+.snap-row::-webkit-scrollbar {
+	display: none;
 }
 
 /* yellow scrollbar (WebKit) */

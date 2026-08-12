@@ -97,6 +97,7 @@
 			in:fly={{ y: 28, duration: 380, easing: cubicOut }}
 			out:fly={{ y: 16, duration: 180, easing: cubicOut }}
 		>
+			<div class="mx-auto mb-4 h-1 w-10 rounded-full bg-line-strong sm:hidden"></div>
 			<!-- header -->
 			<div class="mb-5 flex items-start justify-between">
 				<div>

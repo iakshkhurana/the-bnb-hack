@@ -40,6 +40,7 @@
 			in:fly={{ y: 28, duration: 380, easing: cubicOut }}
 			out:fly={{ y: 16, duration: 180, easing: cubicOut }}
 		>
+			<div class="mx-auto mb-4 h-1 w-10 rounded-full bg-line-strong sm:hidden"></div>
 			<div class="mb-5 flex items-start justify-between">
 				<div>
 					<h3 class="text-lg font-bold tracking-tight">Connect a wallet</h3>

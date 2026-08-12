@@ -1,0 +1,17 @@
+{
+	"name": "HIVE, the agent labor market for BNB Chain",
+	"short_name": "HIVE",
+	"description": "Hire on-chain agents with verifiable resumes, scoped permissions, and proven advantage.",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#0b0e11",
+	"theme_color": "#0b0e11",
+	"icons": [
+		{
+			"src": "/icon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any"
+		}
+	]
+}

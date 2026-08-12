@@ -54,7 +54,7 @@
 </script>
 
 <article
-	class="group relative flex h-full flex-col rounded-card border bg-card p-5 shadow-card transition-all duration-300 [transition-timing-function:var(--ease-out-quart)] hover:-translate-y-1 hover:shadow-lift {selected
+	class="group relative flex h-full flex-col rounded-card border bg-card p-5 shadow-card transition-all duration-300 [transition-timing-function:var(--ease-out-quart)] hover:-translate-y-1 hover:shadow-lift active:scale-[0.99] {selected
 		? 'border-cta'
 		: 'border-transparent'}"
 >
