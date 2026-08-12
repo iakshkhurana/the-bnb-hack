@@ -45,6 +45,16 @@ Numbers on screen tick every 15 seconds without a refresh. Cross-source consiste
 
 No wallet? The full hire → monitor → revoke journey works in demo mode, zero dead ends for judges.
 
+## Deploy (public URL for judging)
+
+The repo is Vercel-ready as-is (`adapter-auto` detects Vercel at build time, no env vars or API keys needed):
+
+1. Push to GitHub (done), then go to vercel.com → New Project → import `the-bnb-hack`
+2. Framework preset: SvelteKit (auto-detected) · build command `npm run build` · no env vars
+3. Deploy. The live BSC data works immediately, public RPCs only.
+
+Netlify or any Node host works the same way.
+
 ## Run it
 
 ```sh
