@@ -315,6 +315,17 @@
 						</span>
 					{/each}
 				</div>
+				<div class="mt-4 flex items-center justify-between border-t border-line pt-3 text-[12px]">
+					<span class="text-faint">ERC-8004 identity · at mainnet launch</span>
+					<a
+						href="https://8004scan.io"
+						target="_blank"
+						rel="noreferrer"
+						class="flex items-center gap-1 font-semibold text-accent hover:underline"
+					>
+						Registry <Icon name="external" size={10} />
+					</a>
+				</div>
 			</Card>
 
 			<Card>

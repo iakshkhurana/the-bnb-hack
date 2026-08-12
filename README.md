@@ -87,7 +87,12 @@ npm run check      # svelte-check, 0 errors
 npm run build      # production build
 ```
 
-Deploying: push to GitHub and import into Vercel. No environment variables, no API keys, nothing to expire.
+Deploying: push to GitHub and import into Vercel. Works with zero environment variables; two optional keys unlock more (copy `.env.example` to `.env`):
+
+| Variable | What it unlocks |
+|---|---|
+| `SCAN8004_API_KEY` | 8004scan Pro tier rate limits for the ERC-8004 stats feed (free for participants via the Developer Hub) |
+| `AGENT_PRIVATE_KEY` | runs a HIVE agent live on BSC testnet: `npm run agent` reads real mainnet market data every cycle and writes verifiable heartbeat transactions from the agent's own wallet (`npm run agent gridhawk` for others) |
 
 ## Honesty model
 
@@ -101,7 +106,7 @@ How HIVE maps to each hackathon partner, honestly labelled shipped vs planned:
 |---|---|
 | **BNB Chain / Agent Studio** | Marketplace shipped for the main track. Agent fleet scaffolding via the BNB Agent Studio CLI is the build-period roadmap; the registry and work-log interfaces are already shaped for it. |
 | **Altana** | Every agent declares which of Altana's ten production skills it is composed from (PancakeSwap Liquidity, PancakeSwap Trading, Venus Lending, Lista Liquid Staking, Token Radar, Wallet Tracker, x402 API Payments), shown on its resume. Sessions mirror the Keystore shape: cap, allowlist, expiry, instant revoke. ERC-8183 and x402 capability flags are first-class agent fields. SDK wiring lands with the mainnet fleet. |
-| **8004scan (AltLayer)** | Planned reputation layer: agent identity, ownership and feedback signals from the 8004scan Pro API rendered on each resume, joining BNB Chain's 200k+ registered ERC-8004 agents. |
+| **8004scan (AltLayer)** | **Shipped**: live ERC-8004 economy stats on the landing page straight from the 8004scan public API (254k+ agents on BNB Chain, daily registrations, reputation averages). Add `SCAN8004_API_KEY` in `.env` for the hackathon Pro tier. Per-agent identity and feedback rendering lands with mainnet registration. |
 | **TermiX** | The required Agent Advantage Report ships in-product at `/proof` and in [`docs/AGENT_ADVANTAGE_REPORT.md`](docs/AGENT_ADVANTAGE_REPORT.md), with the high-stakes trading task, honest deltas and attached outputs. |
 | **PancakeSwap** | Six of twelve agents work PancakeSwap venues directly: V3 range management that triples fee capture in the measured task, and grid trading with live pool prices on every page. |
 

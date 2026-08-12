@@ -53,6 +53,21 @@
 	const totalUsers = AGENTS.reduce((s, a) => s + a.metrics.users, 0);
 	const avgGas = AGENTS.reduce((s, a) => s + a.metrics.avgGasUsd, 0) / AGENTS.length;
 
+	// ── ERC-8004 agent economy via 8004scan ───────────────────────
+	interface Erc8004 {
+		ok: boolean;
+		bsc: { totalAgents: number; dailyNewAgents: number; totalFeedbacks: number; avgScore: number | null };
+	}
+	let erc = $state<Erc8004 | null>(null);
+	$effect(() => {
+		fetch('/api/erc8004')
+			.then((r) => r.json())
+			.then((d: Erc8004) => {
+				if (d.ok) erc = d;
+			})
+			.catch(() => {});
+	});
+
 	const topByCategory = CATEGORIES.map((c) => {
 		const list = byCategory(c).slice().sort((a, b) => b.metrics.tvlUsd - a.metrics.tvlUsd);
 		return { category: c, meta: CATEGORY_META[c], top: list[0], count: list.length };
@@ -259,4 +274,49 @@
 			</ul>
 		</Card>
 	</div>
+
+	{#if erc?.ok}
+		<Card dark class="mt-4">
+			<div class="flex flex-wrap items-start justify-between gap-3">
+				<div>
+					<p class="flex items-center gap-2 text-[13px] font-bold">
+						The ERC-8004 agent economy <Badge kind="live" class="border-white/10 bg-white/10" />
+					</p>
+					<p class="mt-0.5 text-[12px] text-white/50">
+						BNB Chain is the largest registry tracked by 8004scan · HIVE agents join it at mainnet launch
+					</p>
+				</div>
+				<a
+					href="https://8004scan.io"
+					target="_blank"
+					rel="noreferrer"
+					class="flex items-center gap-1 text-[12px] font-semibold text-accent hover:underline"
+				>
+					Explore on 8004scan <Icon name="external" size={11} />
+				</a>
+			</div>
+			<div class="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
+				<div>
+					<p class="text-[11px] text-white/40">Agents on BNB Chain</p>
+					<p class="mt-0.5 text-2xl font-bold"><CountUp value={erc.bsc.totalAgents} /></p>
+				</div>
+				<div>
+					<p class="text-[11px] text-white/40">Registered today</p>
+					<p class="mt-0.5 text-2xl font-bold text-good">
+						+<CountUp value={erc.bsc.dailyNewAgents} />
+					</p>
+				</div>
+				<div>
+					<p class="text-[11px] text-white/40">Feedback signals</p>
+					<p class="mt-0.5 text-2xl font-bold"><CountUp value={erc.bsc.totalFeedbacks} /></p>
+				</div>
+				<div>
+					<p class="text-[11px] text-white/40">Avg reputation</p>
+					<p class="mt-0.5 text-2xl font-bold">
+						{erc.bsc.avgScore != null ? `${erc.bsc.avgScore.toFixed(1)} / 100` : '...'}
+					</p>
+				</div>
+			</div>
+		</Card>
+	{/if}
 </section>
