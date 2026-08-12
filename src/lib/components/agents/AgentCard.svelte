@@ -1,10 +1,12 @@
 <script lang="ts">
 	import type { Agent } from '$lib/agents/types';
 	import { CATEGORY_META } from '$lib/agents/types';
+	import { POOLS } from '$lib/chain/contracts';
 	import { equityCurve } from '$lib/agents/performance';
 	import { usd, pct } from '$lib/utils/format';
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import Badge from '$lib/components/ui/Badge.svelte';
+	import TokenIcon from '$lib/components/ui/TokenIcon.svelte';
 	import Sparkline from '$lib/components/charts/Sparkline.svelte';
 
 	let {
@@ -22,84 +24,135 @@
 	const spark = $derived(equityCurve(agent, 30));
 	const meta = $derived(CATEGORY_META[agent.category]);
 	const isMonitor = $derived(agent.category === 'health');
+
+	/** monogram from the camel-case capitals: RangeKeeper -> RK */
+	const initials = $derived.by(() => {
+		const caps = agent.name.match(/[A-Z]/g) ?? [];
+		return (caps.length >= 2 ? caps.slice(0, 2).join('') : agent.name.slice(0, 2)).toUpperCase();
+	});
+
+	/** tokens the agent actually touches, for the venue row */
+	const tokens = $derived.by(() => {
+		if (agent.poolId) {
+			const p = POOLS[agent.poolId];
+			return [p.token0, p.token1];
+		}
+		if (agent.category === 'grid' && agent.feedSymbol) return [agent.feedSymbol, 'USDT'];
+		if (agent.venusSymbols?.length) {
+			return agent.venusSymbols.map((s) => s.replace(/^v/, '')).slice(0, 3);
+		}
+		return agent.feedSymbol ? [agent.feedSymbol] : [];
+	});
+
+	const risk = $derived(
+		agent.riskLevel <= 2
+			? { label: 'Low', dot: 'bg-good' }
+			: agent.riskLevel === 3
+				? { label: 'Medium', dot: 'bg-warn' }
+				: { label: 'High', dot: 'bg-crit' }
+	);
 </script>
 
-<div
-	class="group relative flex flex-col rounded-card border bg-card p-5 shadow-card transition-all duration-300 [transition-timing-function:var(--ease-out-quart)] hover:-translate-y-1 hover:shadow-lift {selected
-		? 'border-accent'
+<article
+	class="group relative flex h-full flex-col rounded-card border bg-card p-5 shadow-card transition-all duration-300 [transition-timing-function:var(--ease-out-quart)] hover:-translate-y-1 hover:shadow-lift {selected
+		? 'border-cta'
 		: 'border-transparent'}"
 >
-	<div class="mb-3 flex items-start gap-3">
-		<span class="grid size-10 shrink-0 place-items-center rounded-xl bg-cta text-cta-fg">
-			<Icon name={meta.icon} size={18} />
+	<!-- identity row -->
+	<div class="flex items-start gap-3">
+		<span class="relative shrink-0">
+			<span
+				class="grid size-10 place-items-center rounded-xl bg-night text-[13px] font-extrabold tracking-widest text-cta"
+			>
+				{initials}
+			</span>
+			<span
+				class="absolute -right-1.5 -bottom-1.5 grid size-5 place-items-center rounded-full bg-cta text-cta-fg ring-2 ring-card"
+				title={meta.label}
+			>
+				<Icon name={meta.icon} size={11} strokeWidth={2.4} />
+			</span>
 		</span>
-		<div class="min-w-0">
+		<div class="min-w-0 flex-1">
 			<div class="flex items-center gap-2">
-				<a href="/agents/{agent.id}" class="truncate text-[15px] font-bold hover:underline">
+				<a href="/agents/{agent.id}" class="truncate text-[15px] font-bold hover:text-accent">
 					{agent.name}
 				</a>
 				<Badge kind={agent.network === 'mainnet' ? 'mainnet' : 'testnet'} />
 			</div>
-			<p class="text-[12px] text-faint">{meta.label} · by {agent.operator}</p>
+			<p class="mt-0.5 truncate text-[12px] text-faint">
+				{meta.label} · {agent.operator} · v{agent.version}
+			</p>
 		</div>
 		{#if selectable}
-			<label class="ml-auto flex cursor-pointer items-center gap-1.5 text-[11px] font-semibold text-sub">
-				<input
-					type="checkbox"
-					checked={selected}
-					onchange={() => ontoggle?.(agent.id)}
-					class="size-3.5 accent-cta"
-				/>
-				Compare
-			</label>
+			<button
+				onclick={() => ontoggle?.(agent.id)}
+				aria-pressed={selected}
+				title={selected ? 'Remove from compare' : 'Add to compare'}
+				class="grid size-7 shrink-0 place-items-center rounded-lg border transition-all duration-200 {selected
+					? 'border-cta bg-cta text-cta-fg'
+					: 'border-line text-faint hover:border-line-strong hover:text-ink'}"
+			>
+				<Icon name={selected ? 'check' : 'plus'} size={13} strokeWidth={2.2} />
+			</button>
 		{/if}
 	</div>
 
-	<p class="mb-4 line-clamp-2 min-h-[2.4em] text-[13px] leading-snug text-sub">{agent.tagline}</p>
+	<p class="mt-3 line-clamp-1 text-[13px] text-sub">{agent.tagline}</p>
 
-	<div class="mb-4 flex items-end justify-between gap-3 rounded-2xl bg-page p-3.5">
+	<!-- venue -->
+	<div class="mt-2.5 flex items-center gap-2 text-[12px] text-faint">
+		<span class="flex items-center -space-x-1.5">
+			{#each tokens as t (t)}
+				<TokenIcon symbol={t} size={18} class="rounded-full ring-2 ring-card" />
+			{/each}
+		</span>
+		<span class="truncate">{agent.venue}</span>
+	</div>
+
+	<!-- headline metric -->
+	<div class="mt-4 flex items-end justify-between gap-4 border-t border-line pt-4">
 		{#if isMonitor}
 			<div>
-				<p class="text-[11px] font-medium text-faint">Positions protected</p>
-				<p class="tabular text-xl font-bold">{agent.metrics.users.toLocaleString()}</p>
+				<p class="text-[11px] font-medium text-faint">Liquidations · {agent.metrics.users.toLocaleString()} protected</p>
+				<p class="tabular mt-0.5 text-2xl font-bold text-good-text">0</p>
 			</div>
 			<div class="text-right">
-				<p class="text-[11px] font-medium text-faint">Liquidations</p>
-				<p class="text-xl font-bold text-good-text">0</p>
+				<p class="text-[11px] font-medium text-faint">Uptime 90d</p>
+				<p class="tabular mt-0.5 text-lg font-bold">{agent.metrics.uptime}%</p>
 			</div>
 		{:else}
 			<div>
-				<div class="flex items-center gap-1.5">
-					<p class="text-[11px] font-medium text-faint">30d APR</p>
-					<Badge kind={agent.provenance.performance === 'backtest' ? 'backtest' : 'onchain'} />
-				</div>
-				<p class="tabular text-xl font-bold {agent.metrics.apr30d >= 0 ? 'text-good-text' : 'text-crit'}">
+				<p class="flex items-center gap-1.5 text-[11px] font-medium text-faint">
+					30d APR <Badge kind="backtest" />
+				</p>
+				<p class="tabular mt-0.5 text-2xl font-bold {agent.metrics.apr30d >= 0 ? 'text-good-text' : 'text-crit'}">
 					{pct(agent.metrics.apr30d)}
 				</p>
 			</div>
-			<Sparkline data={spark} width={110} height={34} />
+			<Sparkline data={spark} width={112} height={36} />
 		{/if}
 	</div>
 
-	<div class="mb-4 grid grid-cols-3 gap-2 text-[12px]">
+	<!-- fact row -->
+	<dl class="mt-4 grid grid-cols-3 gap-2 border-t border-line pt-3.5 pb-4 text-[12px]">
 		<div>
-			<p class="text-faint">TVL</p>
-			<p class="tabular font-semibold">{usd(agent.metrics.tvlUsd, { compact: true })}</p>
+			<dt class="text-faint">TVL</dt>
+			<dd class="tabular mt-0.5 font-semibold">{usd(agent.metrics.tvlUsd, { compact: true })}</dd>
 		</div>
 		<div>
-			<p class="text-faint">Users</p>
-			<p class="tabular font-semibold">{agent.metrics.users.toLocaleString()}</p>
+			<dt class="text-faint">Users</dt>
+			<dd class="tabular mt-0.5 font-semibold">{agent.metrics.users.toLocaleString()}</dd>
 		</div>
 		<div>
-			<p class="text-faint">Risk</p>
-			<p class="mt-1 flex gap-0.5" title="Risk level {agent.riskLevel} of 5">
-				{#each Array(5) as _, i (i)}
-					<span class="h-1.5 w-3 rounded-full {i < agent.riskLevel ? 'bg-ink' : 'bg-line'}"></span>
-				{/each}
-			</p>
+			<dt class="text-faint">Risk</dt>
+			<dd class="mt-0.5 flex items-center gap-1.5 font-semibold" title="Risk level {agent.riskLevel} of 5">
+				<span class="size-1.5 rounded-full {risk.dot}"></span>{risk.label}
+			</dd>
 		</div>
-	</div>
+	</dl>
 
+	<!-- footer -->
 	<div class="mt-auto flex items-center justify-between border-t border-line pt-3.5">
 		<span class="text-[12px] font-semibold text-sub">{agent.fee.label}</span>
 		<a
@@ -109,4 +162,4 @@
 			View & hire <Icon name="chevron-right" size={13} />
 		</a>
 	</div>
-</div>
+</article>

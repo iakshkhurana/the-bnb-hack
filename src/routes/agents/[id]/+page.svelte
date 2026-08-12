@@ -65,6 +65,11 @@
 	});
 
 	const isMonitor = $derived(agent.category === 'health');
+
+	const initials = $derived.by(() => {
+		const caps = agent.name.match(/[A-Z]/g) ?? [];
+		return (caps.length >= 2 ? caps.slice(0, 2).join('') : agent.name.slice(0, 2)).toUpperCase();
+	});
 </script>
 
 <svelte:head>
@@ -78,8 +83,18 @@
 
 	<!-- ═══ Resume header ═══ -->
 	<div class="mb-6 flex flex-wrap items-start gap-5">
-		<span class="grid size-16 place-items-center rounded-card bg-cta text-cta-fg">
-			<Icon name={meta.icon} size={28} />
+		<span class="relative shrink-0">
+			<span
+				class="grid size-16 place-items-center rounded-card bg-night text-xl font-extrabold tracking-widest text-cta"
+			>
+				{initials}
+			</span>
+			<span
+				class="absolute -right-2 -bottom-2 grid size-7 place-items-center rounded-full bg-cta text-cta-fg ring-4 ring-page"
+				title={meta.label}
+			>
+				<Icon name={meta.icon} size={14} strokeWidth={2.2} />
+			</span>
 		</span>
 		<div class="min-w-0 flex-1">
 			<div class="flex flex-wrap items-center gap-2.5">
