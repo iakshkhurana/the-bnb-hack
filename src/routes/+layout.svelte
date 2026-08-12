@@ -54,7 +54,7 @@
 	<!-- ═══ Floating glass navbar ═══ -->
 	<header class="fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-5">
 		<div
-			class="mx-auto flex items-center gap-3 rounded-full bg-card/80 shadow-glass backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 [transition-timing-function:var(--ease-out-quart)] {scrolled
+			class="mx-auto flex items-center gap-3 rounded-full bg-card/80 bg-[image:linear-gradient(115deg,var(--nav-tint),transparent_50%,var(--nav-tint))] shadow-glass backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 [transition-timing-function:var(--ease-out-quart)] {scrolled
 				? 'h-[52px] max-w-[960px] px-2.5 sm:px-3'
 				: 'h-[72px] max-w-[1140px] px-3.5 sm:px-5'}"
 		>

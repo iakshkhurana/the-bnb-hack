@@ -303,6 +303,21 @@
 			</Card>
 
 			<Card>
+				<div class="mb-1 flex items-center gap-2">
+					<Icon name="spark" size={15} class="text-sub" />
+					<h2 class="text-[15px] font-bold">Skills</h2>
+				</div>
+				<p class="mb-3 text-[12px] text-faint">Composed from Altana production skills</p>
+				<div class="flex flex-wrap gap-1.5">
+					{#each agent.skills as skill (skill)}
+						<span class="rounded-full bg-accent-tint px-3 py-1 text-[12px] font-semibold text-accent">
+							{skill}
+						</span>
+					{/each}
+				</div>
+			</Card>
+
+			<Card>
 				<div class="mb-3 flex items-center gap-2">
 					<Icon name="key" size={15} class="text-sub" />
 					<h2 class="text-[15px] font-bold">Default leash</h2>

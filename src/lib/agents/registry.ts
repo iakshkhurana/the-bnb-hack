@@ -62,6 +62,7 @@ export const AGENTS: Agent[] = [
 			expiryDays: 30,
 			allowlist: [PCS_POSITION_MANAGER, PCS_ROUTER]
 		},
+		skills: ['PancakeSwap Liquidity'],
 		seed: 101,
 		erc8183: true,
 		x402: false,
@@ -106,6 +107,7 @@ export const AGENTS: Agent[] = [
 			expiryDays: 30,
 			allowlist: [PCS_POSITION_MANAGER, PCS_ROUTER]
 		},
+		skills: ['PancakeSwap Liquidity', 'x402 API Payments'],
 		seed: 102,
 		erc8183: true,
 		x402: true,
@@ -150,6 +152,7 @@ export const AGENTS: Agent[] = [
 			expiryDays: 60,
 			allowlist: [PCS_POSITION_MANAGER]
 		},
+		skills: ['PancakeSwap Liquidity'],
 		seed: 103,
 		erc8183: false,
 		x402: false,
@@ -192,6 +195,7 @@ export const AGENTS: Agent[] = [
 		},
 		provenance: { performance: 'backtest', activity: 'testnet' },
 		leash: { spendCapBnb: 1.0, expiryDays: 14, allowlist: [PCS_ROUTER] },
+		skills: ['PancakeSwap Trading', 'Token Radar'],
 		seed: 201,
 		erc8183: true,
 		x402: false,
@@ -232,6 +236,7 @@ export const AGENTS: Agent[] = [
 		},
 		provenance: { performance: 'backtest', activity: 'testnet' },
 		leash: { spendCapBnb: 0.6, expiryDays: 14, allowlist: [PCS_ROUTER] },
+		skills: ['PancakeSwap Trading', 'x402 API Payments'],
 		seed: 202,
 		erc8183: true,
 		x402: true,
@@ -272,6 +277,7 @@ export const AGENTS: Agent[] = [
 		},
 		provenance: { performance: 'backtest', activity: 'testnet' },
 		leash: { spendCapBnb: 0.8, expiryDays: 30, allowlist: [PCS_ROUTER] },
+		skills: ['PancakeSwap Trading'],
 		seed: 203,
 		erc8183: false,
 		x402: false,
@@ -317,6 +323,7 @@ export const AGENTS: Agent[] = [
 			expiryDays: 90,
 			allowlist: [VENUS_COMPTROLLER, VENUS_VUSDT, VENUS_VUSDC]
 		},
+		skills: ['Venus Lending', 'Lista Liquid Staking'],
 		seed: 301,
 		erc8183: true,
 		x402: true,
@@ -361,6 +368,7 @@ export const AGENTS: Agent[] = [
 			expiryDays: 60,
 			allowlist: [VENUS_COMPTROLLER, VENUS_VBNB, PCS_ROUTER]
 		},
+		skills: ['Venus Lending', 'Lista Liquid Staking'],
 		seed: 302,
 		erc8183: true,
 		x402: false,
@@ -405,6 +413,7 @@ export const AGENTS: Agent[] = [
 			expiryDays: 90,
 			allowlist: [PCS_ROUTER, VENUS_VUSDT]
 		},
+		skills: ['PancakeSwap Trading', 'x402 API Payments'],
 		seed: 303,
 		erc8183: false,
 		x402: true,
@@ -449,6 +458,7 @@ export const AGENTS: Agent[] = [
 			expiryDays: 90,
 			allowlist: [VENUS_COMPTROLLER, VENUS_VBNB, VENUS_VUSDT]
 		},
+		skills: ['Venus Lending', 'Wallet Tracker'],
 		seed: 401,
 		erc8183: true,
 		x402: false,
@@ -492,6 +502,7 @@ export const AGENTS: Agent[] = [
 			expiryDays: 60,
 			allowlist: [VENUS_COMPTROLLER, VENUS_VBNB, VENUS_VUSDT, VENUS_VUSDC]
 		},
+		skills: ['Venus Lending', 'Wallet Tracker'],
 		seed: 402,
 		erc8183: true,
 		x402: true,
@@ -534,6 +545,7 @@ export const AGENTS: Agent[] = [
 			expiryDays: 90,
 			allowlist: [VENUS_VUSDT]
 		},
+		skills: ['Venus Lending'],
 		seed: 403,
 		erc8183: false,
 		x402: false,

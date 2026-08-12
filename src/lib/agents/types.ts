@@ -50,6 +50,8 @@ export interface Agent {
 	metrics: AgentMetrics;
 	provenance: { performance: Provenance; activity: 'backtest' | 'testnet' | 'mainnet' };
 	leash: LeashDefaults;
+	/** Altana production skills this agent is composed from (skills.altana.network) */
+	skills: string[];
 	/** deterministic seed for backtest series + activity simulation */
 	seed: number;
 	erc8183: boolean;

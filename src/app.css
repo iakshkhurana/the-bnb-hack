@@ -71,6 +71,11 @@
 :root {
 	--spark-stroke: #0500ff;
 	--heat-zero: #efeff1;
+	--nav-tint: rgb(5 0 255 / 0.09);
+}
+
+:root[data-theme='dark'] {
+	--nav-tint: rgb(91 82 255 / 0.16);
 }
 
 /* cursive monogram for agent identity tiles */
