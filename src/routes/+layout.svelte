@@ -58,22 +58,11 @@
 				? 'h-[52px] max-w-[960px] px-2.5 sm:px-3'
 				: 'h-[72px] max-w-[1140px] px-3.5 sm:px-5'}"
 		>
-			<a href="/" class="group flex shrink-0 items-center gap-2 pl-1">
+			<a href="/" class="group grid shrink-0 place-items-center pl-1" aria-label="HIVE home">
 				<span
 					class="grid place-items-center text-cta transition-all duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-[-10deg]"
 				>
-					<Logo size={scrolled ? 22 : 28} />
-				</span>
-				<span
-					class="font-extrabold tracking-[0.04em] text-cta transition-all duration-500 {scrolled
-						? 'text-[16px]'
-						: 'text-[19px]'}">HIVE</span>
-				<span
-					class="mt-0.5 hidden rounded-full border border-line bg-card px-2 py-0.5 text-[9px] font-bold tracking-[0.08em] text-sub transition-all duration-300 md:inline {scrolled
-						? 'w-0 scale-90 overflow-hidden border-transparent px-0 opacity-0'
-						: 'opacity-100'}"
-				>
-					BNB CHAIN
+					<Logo size={scrolled ? 24 : 30} />
 				</span>
 			</a>
 

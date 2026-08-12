@@ -92,13 +92,13 @@
 	--color-line: rgb(255 255 255 / 0.08);
 	--color-line-strong: rgb(255 255 255 / 0.16);
 
-	--color-cta: #4d45ff;
-	--color-cta-fg: #ffffff;
+	--color-cta: rgb(72 255 145);
+	--color-cta-fg: #0b0e11;
 
-	--color-accent: #6f66ff;
-	--color-accent-deep: #8781ff;
-	--color-accent-soft: #4d45ff;
-	--color-accent-tint: rgb(93 82 255 / 0.16);
+	--color-accent: #48ff91;
+	--color-accent-deep: #2ee97d;
+	--color-accent-soft: #35d97f;
+	--color-accent-tint: rgb(72 255 145 / 0.12);
 
 	--color-good: #0ecb81;
 	--color-good-text: #0ecb81;
@@ -111,7 +111,7 @@
 		inset 0 1px 0 rgb(255 255 255 / 0.06), 0 0 0 1px rgb(255 255 255 / 0.08),
 		0 16px 32px -12px rgb(0 0 0 / 0.55);
 
-	--spark-stroke: #6f66ff;
+	--spark-stroke: #48ff91;
 	--heat-zero: #2b3139;
 }
 

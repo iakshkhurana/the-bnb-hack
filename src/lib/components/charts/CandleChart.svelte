@@ -30,7 +30,7 @@
 		grid: theme.mode === 'dark' ? 'rgba(255,255,255,0.07)' : '#efeff1',
 		up: '#0ecb81',
 		down: '#f6465d',
-		level: theme.mode === 'dark' ? 'rgba(135,129,255,0.55)' : 'rgba(5,0,255,0.45)'
+		level: theme.mode === 'dark' ? 'rgba(72,255,145,0.55)' : 'rgba(5,0,255,0.45)'
 	});
 
 	function drawLevels(levels: number[]) {
