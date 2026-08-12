@@ -22,11 +22,15 @@
 	} = $props();
 
 	const variants: Record<Variant, string> = {
-		primary: 'bg-ink text-white hover:bg-night-2 active:scale-[0.98]',
-		accent: 'bg-accent text-white hover:bg-accent-deep active:scale-[0.98]',
-		ghost: 'bg-transparent text-ink border border-line hover:bg-page active:scale-[0.98]',
-		danger: 'bg-crit text-white hover:opacity-90 active:scale-[0.98]',
-		light: 'bg-white text-ink hover:bg-accent-tint active:scale-[0.98]'
+		primary:
+			'bg-ink text-white shadow-card hover:bg-night-2 hover:-translate-y-px hover:shadow-lift active:translate-y-0 active:scale-[0.98]',
+		accent:
+			'bg-accent text-white shadow-card hover:bg-accent-deep hover:-translate-y-px hover:shadow-lift active:translate-y-0 active:scale-[0.98]',
+		ghost:
+			'bg-white/60 text-ink border border-line backdrop-blur-sm hover:border-line-strong hover:bg-white active:scale-[0.98]',
+		danger:
+			'bg-crit text-white shadow-card hover:-translate-y-px hover:opacity-90 hover:shadow-lift active:translate-y-0 active:scale-[0.98]',
+		light: 'bg-white text-ink shadow-card hover:bg-accent-tint active:scale-[0.98]'
 	};
 
 	const sizes = {
@@ -36,7 +40,7 @@
 	};
 
 	const base =
-		'inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-150 disabled:opacity-40 disabled:pointer-events-none whitespace-nowrap';
+		'inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 [transition-timing-function:var(--ease-out-quart)] disabled:opacity-40 disabled:pointer-events-none whitespace-nowrap';
 </script>
 
 {#if href}
