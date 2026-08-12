@@ -29,10 +29,10 @@
 	$effect(() => market.subscribe());
 
 	let hireOpen = $state(false);
-	let window = $state('90');
+	let chartWindow = $state('90');
 
 	const meta = $derived(CATEGORY_META[agent.category]);
-	const curve = $derived(equityCurve(agent, Number(window)));
+	const curve = $derived(equityCurve(agent, Number(chartWindow)));
 	const stats = $derived(curveStats(curve));
 	const log = $derived(activityLog(agent, 12));
 	const heat = $derived(activityHeatmap(agent));
@@ -156,7 +156,7 @@
 							<h2 class="text-[15px] font-bold">Strategy performance</h2>
 							<Badge kind="backtest" />
 						</div>
-						<PillTabs options={[{ label: '30d', value: '30' }, { label: '60d', value: '60' }, { label: '90d', value: '90' }]} bind:value={window} />
+						<PillTabs options={[{ label: '30d', value: '30' }, { label: '60d', value: '60' }, { label: '90d', value: '90' }]} bind:value={chartWindow} />
 					</div>
 					<div class="mb-3 flex gap-5 text-[13px]">
 						<span class="flex items-center gap-1.5 text-sub">Return <Delta value={stats.totalReturn} /></span>
