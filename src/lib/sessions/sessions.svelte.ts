@@ -24,6 +24,8 @@ export interface Session {
 	status: 'active' | 'revoked';
 	grantSig?: string;
 	revokedAt?: number;
+	/** demo sessions burn simulated funds; real sessions never touch money until agents execute on-chain */
+	demo?: boolean;
 }
 
 const KEY = 'hive.sessions.v1';
@@ -58,6 +60,7 @@ class SessionStore {
 		expiryDays: number;
 		allowlist: { label: string; address: string }[];
 		grantSig?: string;
+		demo?: boolean;
 	}): Session {
 		const agent = byId(input.agentId);
 		const actionsPerHour = agent ? agent.metrics.actions30d / (30 * 24) : 0.1;
@@ -77,7 +80,8 @@ class SessionStore {
 			expiresAt: Date.now() + input.expiryDays * 86_400_000,
 			allowlist: input.allowlist,
 			status: 'active',
-			grantSig: input.grantSig
+			grantSig: input.grantSig,
+			demo: input.demo ?? true
 		};
 		this.sessions = [session, ...this.sessions];
 		this.#save();
@@ -98,6 +102,9 @@ class SessionStore {
 
 	/** BNB consumed so far, grows in real time, capped at 92% of the leash. */
 	spent(s: Session): number {
+		// real-wallet sessions: signing is free, no funds move until the agent
+		// executes on-chain under the cap, so honest spend is zero
+		if (s.demo === false) return 0;
 		const end = s.status === 'revoked' ? (s.revokedAt ?? Date.now()) : Date.now();
 		const hours = Math.max(0, (Math.min(end, s.expiresAt) - s.createdAt) / 3_600_000);
 		return Math.min(s.spendCapBnb * 0.92, s.burnPerHour * hours);

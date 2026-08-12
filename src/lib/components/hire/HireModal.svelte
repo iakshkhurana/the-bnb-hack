@@ -70,7 +70,8 @@
 				spendCapBnb: spendCap,
 				expiryDays,
 				allowlist: allowSelected,
-				grantSig: sig
+				grantSig: sig,
+				demo: wallet.demo
 			});
 			step = 3;
 		} finally {
@@ -222,6 +223,20 @@
 					<div class="flex items-center justify-between rounded-2xl border border-line p-4 text-[13px]">
 						<span class="text-sub">Agent fee</span>
 						<span class="font-semibold">{agent.fee.label}</span>
+					</div>
+					<div class="flex items-start gap-2.5 rounded-2xl bg-accent-tint p-4 text-[12px] leading-relaxed">
+						<Icon name="shield" size={15} class="mt-0.5 shrink-0 text-accent" />
+						{#if wallet.demo || !wallet.connected}
+							<span class="text-sub">
+								<b class="text-ink">Demo money only.</b> This session runs on simulated funds. Nothing
+								real is ever at stake in demo mode.
+							</span>
+						{:else}
+							<span class="text-sub">
+								<b class="text-ink">Signing is free.</b> No funds leave your wallet today. When this
+								agent executes on-chain, the spend cap above is the hard maximum it can ever use.
+							</span>
+						{/if}
 					</div>
 				</div>
 

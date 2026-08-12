@@ -183,8 +183,11 @@
 								<div class="mt-3.5 max-w-xl">
 									<div class="mb-1.5 flex items-baseline justify-between text-[12px]">
 										<span class="text-sub">
-											Budget burned
+											{s.demo === false ? 'Spend cap reserved' : 'Budget burned'}
 											<b class="tabular text-ink">{spent.toFixed(4)} / {s.spendCapBnb.toFixed(2)} BNB</b>
+											{#if s.demo !== false}
+												<span class="ml-1 rounded-full bg-warn/20 px-1.5 py-0.5 text-[9px] font-bold text-sub">SIMULATED</span>
+											{/if}
 										</span>
 										<span class="tabular font-semibold {p >= 80 ? 'text-crit' : 'text-sub'}">{p.toFixed(1)}%</span>
 									</div>
@@ -192,7 +195,11 @@
 										<div class="h-full rounded-full transition-all duration-1000 {barColor(p)}" style="width: {p}%"></div>
 									</div>
 									<p class="mt-1 text-[11px] text-faint">
-										Hard ceiling, the session key cannot exceed it. {s.allowlist.length} contract{s.allowlist.length > 1 ? 's' : ''} allowlisted.
+										{#if s.demo === false}
+											Nothing has left your wallet. The cap becomes the on-chain maximum the moment this agent executes. {s.allowlist.length} contract{s.allowlist.length > 1 ? 's' : ''} allowlisted.
+										{:else}
+											Hard ceiling, the session key cannot exceed it. {s.allowlist.length} contract{s.allowlist.length > 1 ? 's' : ''} allowlisted.
+										{/if}
 									</p>
 								</div>
 
