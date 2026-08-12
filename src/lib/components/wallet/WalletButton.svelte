@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { fly } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 	import { wallet } from '$lib/wallet/wallet.svelte';
 	import { shortAddr } from '$lib/utils/format';
 	import Icon from '$lib/components/ui/Icon.svelte';
@@ -22,7 +24,8 @@
 		</button>
 		{#if open}
 			<div
-				class="absolute top-11 right-0 z-50 w-56 rounded-2xl border border-line bg-white p-2 shadow-rail"
+				class="absolute top-11 right-0 z-50 w-56 rounded-2xl bg-white p-2 shadow-rail"
+				transition:fly={{ y: 6, duration: 220, easing: cubicOut }}
 			>
 				{#if !wallet.onBsc}
 					<button

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
+	import { fade, fly } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 	import { AGENTS } from '$lib/agents/registry';
 	import { CATEGORIES, CATEGORY_META, type Category } from '$lib/agents/types';
 	import { byId } from '$lib/agents/registry';
@@ -155,13 +157,15 @@
 	<!-- grid -->
 	{#if filtered.length}
 		<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-			{#each filtered as agent (agent.id)}
-				<AgentCard
-					{agent}
-					selectable
-					selected={compareIds.includes(agent.id)}
-					ontoggle={toggleCompare}
-				/>
+			{#each filtered as agent, i (agent.id)}
+				<div class="rise" style="animation-delay: {Math.min(i, 8) * 45}ms">
+					<AgentCard
+						{agent}
+						selectable
+						selected={compareIds.includes(agent.id)}
+						ontoggle={toggleCompare}
+					/>
+				</div>
 			{/each}
 		</div>
 	{:else}
@@ -174,7 +178,10 @@
 
 <!-- compare bar -->
 {#if compareIds.length > 0}
-	<div class="fixed bottom-20 left-1/2 z-40 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 lg:bottom-6">
+	<div
+		class="fixed bottom-20 left-1/2 z-40 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 lg:bottom-6"
+		transition:fly={{ y: 24, duration: 320, easing: cubicOut }}
+	>
 		<div class="flex items-center gap-3 rounded-full bg-night p-2 pl-5 text-white shadow-rail">
 			<p class="text-[13px] font-semibold">
 				{compareIds.length} selected <span class="text-white/40">· up to 3</span>
@@ -192,14 +199,19 @@
 <!-- compare modal -->
 {#if compareOpen}
 	<div
-		class="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4 backdrop-blur-[2px]"
+		class="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4 backdrop-blur-[3px]"
+		transition:fade={{ duration: 200 }}
 		onclick={(e) => e.target === e.currentTarget && (compareOpen = false)}
 		onkeydown={(e) => e.key === 'Escape' && (compareOpen = false)}
 		role="dialog"
 		aria-modal="true"
 		tabindex="-1"
 	>
-		<div class="max-h-[88vh] w-full max-w-3xl overflow-auto rounded-card bg-card p-6 shadow-rail">
+		<div
+			class="max-h-[88vh] w-full max-w-3xl overflow-auto rounded-card bg-card p-6 shadow-rail"
+			in:fly={{ y: 28, duration: 380, easing: cubicOut }}
+			out:fly={{ y: 16, duration: 180, easing: cubicOut }}
+		>
 			<div class="mb-5 flex items-center justify-between">
 				<h3 class="text-xl font-bold tracking-tight">Side by side</h3>
 				<button

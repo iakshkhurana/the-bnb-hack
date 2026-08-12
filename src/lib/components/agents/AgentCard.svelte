@@ -25,9 +25,9 @@
 </script>
 
 <div
-	class="group relative flex flex-col rounded-card border bg-card p-5 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-rail {selected
+	class="group relative flex flex-col rounded-card border bg-card p-5 shadow-card transition-all duration-300 [transition-timing-function:var(--ease-out-quart)] hover:-translate-y-1 hover:shadow-lift {selected
 		? 'border-accent'
-		: 'border-line'}"
+		: 'border-transparent'}"
 >
 	<div class="mb-3 flex items-start gap-3">
 		<span class="grid size-10 shrink-0 place-items-center rounded-xl bg-ink text-white">

@@ -66,7 +66,7 @@
 
 <!-- ═══ Hero ═══ -->
 <section class="grid items-center gap-6 py-8 lg:grid-cols-[1.02fr_1fr] lg:gap-10 lg:py-12">
-	<div>
+	<div class="rise">
 		<p
 			class="mb-4 inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 text-[12px] font-semibold text-sub"
 		>
@@ -97,7 +97,7 @@
 		</div>
 	</div>
 
-	<Card dark padded={false} class="p-5 sm:p-6">
+	<Card dark padded={false} class="rise p-5 [animation-delay:110ms] sm:p-6">
 		<div class="mb-1 flex flex-wrap items-center justify-between gap-3">
 			<div>
 				<p class="flex items-center gap-2 text-[12px] font-medium text-white/50">
@@ -128,7 +128,7 @@
 </section>
 
 <!-- ═══ Stat tiles ═══ -->
-<section class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+<section class="rise grid grid-cols-2 gap-4 [animation-delay:200ms] lg:grid-cols-4">
 	{#each [{ icon: 'wallet', label: 'Under agent management', value: usd(totalTvl, { compact: true }) }, { icon: 'bolt', label: 'Actions last 30 days', value: num(totalActions, 0) }, { icon: 'users', label: 'Active hirers', value: num(totalUsers, 0) }, { icon: 'gas', label: 'Avg gas per action', value: usd(avgGas, { decimals: 2 }) }] as stat (stat.label)}
 		<Card>
 			<div class="flex items-center gap-2 text-sub">

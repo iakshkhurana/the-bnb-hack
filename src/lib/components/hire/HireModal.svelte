@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { fade, fly } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 	import type { Agent } from '$lib/agents/types';
 	import { wallet } from '$lib/wallet/wallet.svelte';
 	import { sessionStore, type Session } from '$lib/sessions/sessions.svelte';
@@ -76,7 +78,8 @@
 
 {#if open}
 	<div
-		class="fixed inset-0 z-50 flex items-end justify-center bg-ink/40 p-0 backdrop-blur-[2px] sm:items-center sm:p-6"
+		class="fixed inset-0 z-50 flex items-end justify-center bg-ink/40 p-0 backdrop-blur-[3px] sm:items-center sm:p-6"
+		transition:fade={{ duration: 200 }}
 		onclick={(e) => {
 			if (e.target === e.currentTarget) open = false;
 		}}
@@ -87,6 +90,8 @@
 	>
 		<div
 			class="max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-t-card bg-card p-6 shadow-rail sm:rounded-card"
+			in:fly={{ y: 28, duration: 380, easing: cubicOut }}
+			out:fly={{ y: 16, duration: 180, easing: cubicOut }}
 		>
 			<!-- header -->
 			<div class="mb-5 flex items-start justify-between">
