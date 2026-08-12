@@ -1,12 +1,18 @@
 {
-	"name": "bnb-hack",
+	"name": "hive-agent-marketplace",
+	"description": "HIVE — the agent labor market for BNB Chain. Hire on-chain agents with verifiable resumes, scoped session permissions, and proven advantage.",
 	"private": true,
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/iakshkhurana/the-bnb-hack"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
+		"test": "vitest run",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
@@ -20,7 +26,8 @@
 		"svelte-check": "^4.6.0",
 		"tailwindcss": "^4.3.3",
 		"typescript": "^6.0.3",
-		"vite": "^8.0.16"
+		"vite": "^8.0.16",
+		"vitest": "^4.1.10"
 	},
 	"dependencies": {
 		"@fontsource-variable/inter": "^5.3.0",
