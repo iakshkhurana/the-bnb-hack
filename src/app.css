@@ -111,6 +111,25 @@
 
 html {
 	scroll-behavior: smooth;
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-cta) transparent;
+}
+
+/* yellow scrollbar (WebKit) */
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background: var(--color-cta);
+	border-radius: 999px;
+	border: 3px solid var(--color-page);
+}
+::-webkit-scrollbar-thumb:hover {
+	background: var(--color-accent-deep);
 }
 
 body {
