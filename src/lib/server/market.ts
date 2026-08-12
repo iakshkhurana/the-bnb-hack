@@ -50,11 +50,23 @@ function annualise(ratePerBlock: bigint): number {
 async function fetch24hChanges(fetchFn: typeof fetch): Promise<Record<string, number>> {
 	try {
 		const symbols = JSON.stringify(Object.values(BINANCE_SYMBOLS));
-		const res = await fetchFn(
-			`https://api.binance.com/api/v3/ticker/24hr?symbols=${encodeURIComponent(symbols)}`,
-			{ signal: AbortSignal.timeout(5000) }
-		);
-		if (!res.ok) return {};
+		// vision mirror first: api.binance.com rejects cloud datacenter IPs (451)
+		let res: Response | null = null;
+		for (const host of ['https://data-api.binance.vision', 'https://api.binance.com']) {
+			try {
+				const attempt = await fetchFn(
+					`${host}/api/v3/ticker/24hr?symbols=${encodeURIComponent(symbols)}`,
+					{ signal: AbortSignal.timeout(5000) }
+				);
+				if (attempt.ok) {
+					res = attempt;
+					break;
+				}
+			} catch {
+				/* try next host */
+			}
+		}
+		if (!res) return {};
 		const rows = (await res.json()) as { symbol: string; priceChangePercent: string }[];
 		const bySymbol = new Map(rows.map((r) => [r.symbol, Number(r.priceChangePercent)]));
 		const out: Record<string, number> = {};

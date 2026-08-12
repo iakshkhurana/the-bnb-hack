@@ -26,11 +26,25 @@ export const GET: RequestHandler = async ({ params, url, fetch, setHeaders }) =>
 		return json(hit.body);
 	}
 
-	const res = await fetch(
-		`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`,
-		{ signal: AbortSignal.timeout(6000) }
-	);
-	if (!res.ok) error(502, 'upstream unavailable');
+	// data-api.binance.vision is the official public market-data mirror and,
+	// unlike api.binance.com, is reachable from cloud datacenter IPs (Vercel).
+	const HOSTS = ['https://data-api.binance.vision', 'https://api.binance.com'];
+	let res: Response | null = null;
+	for (const host of HOSTS) {
+		try {
+			const attempt = await fetch(
+				`${host}/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`,
+				{ signal: AbortSignal.timeout(6000) }
+			);
+			if (attempt.ok) {
+				res = attempt;
+				break;
+			}
+		} catch {
+			/* try next host */
+		}
+	}
+	if (!res) error(502, 'upstream unavailable');
 
 	const raw = (await res.json()) as [number, string, string, string, string, string][];
 	const candles = raw.map((k) => ({
