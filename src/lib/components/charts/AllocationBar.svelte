@@ -13,7 +13,7 @@
 
 	let { slices }: { slices: Slice[] } = $props();
 
-	const COLORS = ['#8f6a00', '#f0b90b', '#fadd8a', '#929aa5'];
+	const COLORS = ['#0300a6', '#4d45ff', '#b3afff', '#929aa5'];
 	const total = $derived(slices.reduce((s, x) => s + x.value, 0) || 1);
 </script>
 

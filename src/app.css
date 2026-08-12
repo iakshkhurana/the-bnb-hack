@@ -17,15 +17,15 @@
 	--color-line: rgb(24 26 32 / 0.08);
 	--color-line-strong: rgb(24 26 32 / 0.14);
 
-	/* primary action: Binance yellow in both themes */
-	--color-cta: #f0b90b;
-	--color-cta-fg: #181a20;
+	/* primary action: electric blue in both themes */
+	--color-cta: rgb(5 0 255);
+	--color-cta-fg: #ffffff;
 
-	/* accent: yellow family (darker step for text on light) */
-	--color-accent: #c99400;
-	--color-accent-deep: #8f6a00;
-	--color-accent-soft: #f0b90b;
-	--color-accent-tint: rgb(240 185 11 / 0.14);
+	/* accent: same blue family */
+	--color-accent: #0500ff;
+	--color-accent-deep: #0300b3;
+	--color-accent-soft: #6f66ff;
+	--color-accent-tint: rgb(5 0 255 / 0.08);
 
 	/* status (Binance green / red) */
 	--color-good: #0ecb81;
@@ -69,8 +69,14 @@
 
 /* non-utility chart vars */
 :root {
-	--spark-stroke: #d9a509;
+	--spark-stroke: #0500ff;
 	--heat-zero: #efeff1;
+}
+
+/* cursive monogram for agent identity tiles */
+.monogram {
+	font-family: 'Segoe Script', 'Apple Chancery', 'Brush Script MT', cursive;
+	font-style: italic;
 }
 
 /* ═══ Dark mode — Binance black & yellow ═══ */
@@ -86,13 +92,13 @@
 	--color-line: rgb(255 255 255 / 0.08);
 	--color-line-strong: rgb(255 255 255 / 0.16);
 
-	--color-cta: #f0b90b;
-	--color-cta-fg: #181a20;
+	--color-cta: #4d45ff;
+	--color-cta-fg: #ffffff;
 
-	--color-accent: #f0b90b;
-	--color-accent-deep: #f8d33a;
-	--color-accent-soft: #d9a509;
-	--color-accent-tint: rgb(240 185 11 / 0.14);
+	--color-accent: #6f66ff;
+	--color-accent-deep: #8781ff;
+	--color-accent-soft: #4d45ff;
+	--color-accent-tint: rgb(93 82 255 / 0.16);
 
 	--color-good: #0ecb81;
 	--color-good-text: #0ecb81;
@@ -105,7 +111,7 @@
 		inset 0 1px 0 rgb(255 255 255 / 0.06), 0 0 0 1px rgb(255 255 255 / 0.08),
 		0 16px 32px -12px rgb(0 0 0 / 0.55);
 
-	--spark-stroke: #f0b90b;
+	--spark-stroke: #6f66ff;
 	--heat-zero: #2b3139;
 }
 

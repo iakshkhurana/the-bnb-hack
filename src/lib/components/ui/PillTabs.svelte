@@ -23,9 +23,7 @@
 			onclick={() => (value = opt.value)}
 			class="rounded-full px-3 py-1 text-[12px] font-semibold transition-colors duration-150 {value ===
 			opt.value
-				? dark
-					? 'bg-white text-[#0b0c0f]'
-					: 'bg-cta text-cta-fg'
+				? 'bg-cta text-cta-fg'
 				: dark
 					? 'text-white/50 hover:text-white'
 					: 'text-sub hover:text-ink'}"

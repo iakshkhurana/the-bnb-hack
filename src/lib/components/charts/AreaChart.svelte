@@ -23,8 +23,8 @@
 	const palette = $derived({
 		text: onDarkSurface ? 'rgba(255,255,255,0.5)' : '#929aa5',
 		grid: onDarkSurface ? 'rgba(255,255,255,0.07)' : '#efeff1',
-		line: onDarkSurface ? '#f0b90b' : '#d9a509',
-		fill: onDarkSurface ? 'rgba(240,185,11,0.16)' : 'rgba(240,185,11,0.18)',
+		line: onDarkSurface ? '#8781ff' : '#0500ff',
+		fill: onDarkSurface ? 'rgba(135,129,255,0.16)' : 'rgba(5,0,255,0.10)',
 		crosshair: onDarkSurface ? 'rgba(255,255,255,0.35)' : '#c9ced6'
 	});
 

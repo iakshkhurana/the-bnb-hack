@@ -62,7 +62,7 @@
 	<div class="flex items-start gap-3">
 		<span class="relative shrink-0">
 			<span
-				class="grid size-10 place-items-center rounded-xl bg-night text-[13px] font-extrabold tracking-widest text-cta"
+				class="monogram grid size-10 place-items-center rounded-xl bg-accent-tint text-[15px] font-bold text-accent"
 			>
 				{initials}
 			</span>

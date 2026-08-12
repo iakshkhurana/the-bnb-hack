@@ -5,8 +5,8 @@
 	 */
 	let { data, label = 'actions' }: { data: number[][]; label?: string } = $props();
 
-	// sequential one-hue yellow ramp, light to dark (magnitude)
-	const RAMP = ['#fdeec2', '#fadd8a', '#f6cc52', '#f0b90b', '#c99400', '#8f6a00'];
+	// sequential one-hue blue ramp, light to dark (magnitude)
+	const RAMP = ['#dcdaff', '#b3afff', '#8781ff', '#5b52ff', '#2018f0', '#0300a6'];
 	const ZERO = 'var(--heat-zero)';
 
 	const max = $derived(Math.max(1, ...data.flat()));
