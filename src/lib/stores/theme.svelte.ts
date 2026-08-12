@@ -18,10 +18,20 @@ class Theme {
 	}
 
 	toggle(): void {
-		this.mode = this.mode === 'light' ? 'dark' : 'light';
-		if (browser) {
-			localStorage.setItem('hive.theme', this.mode);
-			this.#apply();
+		const apply = () => {
+			this.mode = this.mode === 'light' ? 'dark' : 'light';
+			if (browser) {
+				localStorage.setItem('hive.theme', this.mode);
+				this.#apply();
+			}
+		};
+		// PowerPoint-style top-to-bottom wipe between themes (View Transitions API)
+		const doc = browser ? (document as Document & { startViewTransition?: (cb: () => void) => void }) : null;
+		const reduced = browser && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		if (doc?.startViewTransition && !reduced) {
+			doc.startViewTransition(apply);
+		} else {
+			apply();
 		}
 	}
 
