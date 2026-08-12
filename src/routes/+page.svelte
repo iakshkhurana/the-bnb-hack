@@ -89,9 +89,10 @@
 		<div class="mt-7 flex flex-wrap items-center gap-2">
 			<Badge kind="live" />
 			<span class="text-[12px] text-faint">
-				Chainlink · PancakeSwap V3 · Venus, read on-chain, block {market.snapshot.block
-					? `#${num(market.snapshot.block, 0)}`
-					: '…'}
+				Real prices, yields and liquidity from BNB Chain
+				{#if market.snapshot.block}
+					<span class="tabular">· block {num(market.snapshot.block, 0)}</span>
+				{/if}
 			</span>
 		</div>
 	</div>
@@ -121,9 +122,7 @@
 			/>
 		</div>
 		<AreaChart data={heroData} dark height={250} valueSuffix=" $" />
-		<p class="mt-2 text-[11px] text-white/35">
-			Spot price via Chainlink on BSC · candles via public market data · refreshes live
-		</p>
+		<p class="mt-2 text-[11px] text-white/35">Oracle-verified price · updates live</p>
 	</Card>
 </section>
 
@@ -224,7 +223,7 @@
 	</div>
 	<div class="grid gap-4 lg:grid-cols-2">
 		<Card>
-			<p class="mb-4 text-[13px] font-bold">Venus supply APY <span class="ml-1 font-medium text-faint">· read from vToken contracts</span></p>
+			<p class="mb-4 text-[13px] font-bold">Earn rates on Venus <span class="ml-1 font-medium text-faint">· verified on-chain</span></p>
 			<ul class="divide-y divide-line">
 				{#each market.snapshot.venus as v (v.symbol)}
 					<li class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
@@ -238,7 +237,7 @@
 			</ul>
 		</Card>
 		<Card>
-			<p class="mb-4 text-[13px] font-bold">PancakeSwap V3 pools <span class="ml-1 font-medium text-faint">· slot0, live tick</span></p>
+			<p class="mb-4 text-[13px] font-bold">PancakeSwap V3 pools <span class="ml-1 font-medium text-faint">· live prices</span></p>
 			<ul class="divide-y divide-line">
 				{#each market.snapshot.pools as p (p.id)}
 					<li class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
@@ -247,8 +246,8 @@
 							<TokenIcon symbol={p.token1} size={30} class="ring-2 ring-card rounded-full" />
 						</span>
 						<div>
-							<p class="text-[13px] font-medium">{p.label} <span class="text-[10px] font-bold text-faint">{p.feeTier}</span></p>
-							<p class="tabular text-[11px] text-faint">tick {p.tick}</p>
+							<p class="text-[13px] font-medium">{p.label}</p>
+							<p class="text-[11px] text-faint">PancakeSwap V3 · {p.feeTier} fee tier</p>
 						</div>
 						<span class="tabular ml-auto text-[15px] font-bold">{usd(p.priceUsd)}</span>
 					</li>

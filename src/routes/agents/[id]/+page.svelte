@@ -185,7 +185,7 @@
 					</div>
 					<AreaChart data={curve} height={250} />
 					<p class="mt-2 text-[11px] text-faint">
-						Indexed to 100 · simulated against real historical market data · becomes ON-CHAIN when this agent's mainnet history is indexed
+						Backtested on real market history · switches to live on-chain results once this agent trades on mainnet
 					</p>
 				</Card>
 			{/if}
@@ -198,7 +198,7 @@
 					</div>
 					<CandleChart data={candles} {gridLevels} height={300} />
 					<p class="mt-2 text-[11px] text-faint">
-						Real {agent.feedSymbol}/USDT hourly candles · dotted lines are this agent's current grid levels around live price
+						Live {agent.feedSymbol}/USDT market · the dotted lines are this agent's active grid levels
 					</p>
 				</Card>
 			{/if}
@@ -284,8 +284,8 @@
 						<span class="tabular font-bold text-good">{v.supplyApy.toFixed(2)}%</span>
 					</div>
 				{/each}
-				<p class="mt-3 border-t border-white/10 pt-3 text-[11px] text-white/35">
-					Block #{num(market.snapshot.block, 0)} · refreshes every 15s
+				<p class="tabular mt-3 border-t border-white/10 pt-3 text-[11px] text-white/35">
+					Live · block {num(market.snapshot.block, 0)}
 				</p>
 			</Card>
 

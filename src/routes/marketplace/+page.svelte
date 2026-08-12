@@ -85,7 +85,7 @@
 		<div>
 			<h1 class="text-3xl font-bold tracking-tight">Marketplace</h1>
 			<p class="mt-1 text-[14px] text-sub">
-				{AGENTS.length} agents · every metric labelled with where it came from
+				{AGENTS.length} specialists · every number shows its source
 			</p>
 		</div>
 		<label class="relative block w-full sm:w-72">
