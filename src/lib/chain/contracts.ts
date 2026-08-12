@@ -29,7 +29,7 @@ export const FEEDS: Record<string, { address: Address; label: string }> = {
 	CAKE: { address: '0xB6064eD41d4f67e353768aA239cA86f4F73665a1', label: 'CAKE / USD' },
 	BTC: { address: '0x264990fbd0A4796A3E3d8E37C4d5F87a3aCa5Ebf', label: 'BTC / USD' },
 	ETH: { address: '0x9ef1B8c0E4F7dc8bF5719Ea496883DC6401d5b2e', label: 'ETH / USD' }
-];
+};
 
 /** PancakeSwap V3 pools the rebalancing / grid agents operate on */
 export const POOLS: Record<
