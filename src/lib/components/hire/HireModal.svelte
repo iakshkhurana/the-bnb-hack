@@ -38,7 +38,10 @@
 	const EXPIRY_OPTIONS = [7, 14, 30, 90];
 
 	async function grant() {
-		if (!wallet.connected) await wallet.connect();
+		if (!wallet.connected) {
+			wallet.requestConnect();
+			return;
+		}
 		if (!wallet.address) return;
 		signing = true;
 		try {
@@ -232,7 +235,7 @@
 				</div>
 				{#if !wallet.connected}
 					<p class="mt-3 text-center text-[12px] text-faint">
-						No wallet? A demo session works end-to-end, connect happens automatically.
+						Clicking opens the connect dialog: pick MetaMask, Trust, Binance Wallet or the demo account.
 					</p>
 				{/if}
 			{:else if granted}

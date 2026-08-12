@@ -8,6 +8,7 @@
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import Logo from '$lib/components/ui/Logo.svelte';
 	import WalletButton from '$lib/components/wallet/WalletButton.svelte';
+	import WalletModal from '$lib/components/wallet/WalletModal.svelte';
 
 	let { children } = $props();
 
@@ -185,6 +186,8 @@
 			</div>
 		{/key}
 	</main>
+
+	<WalletModal />
 
 	<footer class="border-t border-line">
 		<div

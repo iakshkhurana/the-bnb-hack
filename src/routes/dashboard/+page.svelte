@@ -86,7 +86,7 @@
 				and the full journey still works.
 			</p>
 			<div class="mt-5">
-				<Button variant="primary" size="lg" onclick={() => wallet.connect()}>
+				<Button variant="primary" size="lg" onclick={() => wallet.requestConnect()}>
 					<Icon name="wallet" size={15} /> Connect wallet
 				</Button>
 			</div>
