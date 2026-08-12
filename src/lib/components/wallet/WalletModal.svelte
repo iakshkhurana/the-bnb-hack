@@ -97,7 +97,7 @@
 						class="mt-3 flex w-full items-center justify-between rounded-2xl border border-line px-4 py-3 text-[13px] font-semibold text-sub transition-colors hover:border-line-strong hover:text-ink"
 					>
 						<span class="flex items-center gap-2">
-							<span class="flex items-center -space-x-1.5 opacity-45 grayscale">
+							<span class="flex items-center -space-x-1.5">
 								{#each notInstalled.slice(0, 4) as p (p.key)}
 									<WalletBrandIcon name={p.key} size={20} />
 								{/each}
@@ -122,9 +122,7 @@
 								rel="noreferrer"
 								class="group flex items-center gap-3 rounded-2xl border border-line px-3 py-2.5 transition-all hover:border-line-strong"
 							>
-								<span class="opacity-40 grayscale transition-all duration-200 group-hover:opacity-100 group-hover:grayscale-0">
-									<WalletBrandIcon name={p.key} size={26} />
-								</span>
+								<WalletBrandIcon name={p.key} size={26} />
 								<span class="text-[13px] font-semibold text-sub group-hover:text-ink">{p.name}</span>
 								<span class="ml-auto flex items-center gap-1 text-[11px] font-bold text-faint group-hover:text-accent">
 									Install <Icon name="external" size={10} />

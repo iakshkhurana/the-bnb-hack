@@ -125,6 +125,10 @@
 		if (!points.length) return;
 		series.setData(points);
 		chart?.timeScale().fitContent();
+		// restart the snake draw-on
+		el.classList.remove('chart-reveal');
+		void el.offsetWidth;
+		el.classList.add('chart-reveal');
 	});
 
 	// theme → chart colors

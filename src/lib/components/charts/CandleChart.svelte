@@ -105,6 +105,10 @@
 		series.setData(candles);
 		drawLevels(levels);
 		chart?.timeScale().fitContent();
+		// restart the snake draw-on
+		el.classList.remove('chart-reveal');
+		void el.offsetWidth;
+		el.classList.add('chart-reveal');
 	});
 
 	$effect(() => {
