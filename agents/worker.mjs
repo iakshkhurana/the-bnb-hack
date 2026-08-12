@@ -72,6 +72,12 @@ async function cycle() {
 		const summary = (ACTIONS[AGENT] ?? ACTIONS.sentinel)(bnb, ratePerBlock);
 		const payload = { agent: AGENT, at: new Date().toISOString(), action: summary };
 
+		if (dryRun) {
+			console.log(`✓ [${AGENT}] ${summary}`);
+			console.log('  (dry run: decision made on live data, not written on-chain — fund the wallet to broadcast)');
+			return;
+		}
+
 		const hash = await testnet.sendTransaction({
 			to: account.address,
 			value: 0n,
@@ -86,10 +92,12 @@ async function cycle() {
 }
 
 const balance = await testnetRead.getBalance({ address: account.address });
+const dryRun = balance === 0n || process.env.AGENT_DRY_RUN === '1';
 console.log(`HIVE agent worker · ${AGENT}`);
 console.log(`wallet ${account.address} · tBNB balance ${(Number(balance) / 1e18).toFixed(4)}`);
-if (balance === 0n) {
-	console.warn('! Balance is zero. Fund at https://www.bnbchain.org/en/testnet-faucet');
+if (dryRun) {
+	console.warn('! DRY RUN: wallet unfunded, decisions run on live data but are not broadcast.');
+	console.warn('  Fund at https://www.bnbchain.org/en/testnet-faucet to write on-chain heartbeats.');
 }
 console.log(`heartbeat every ${INTERVAL_MIN} min, Ctrl+C to stop\n`);
 
