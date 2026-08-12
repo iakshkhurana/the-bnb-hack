@@ -2,17 +2,12 @@
 import { browser } from '$app/environment';
 
 class Theme {
-	mode = $state<'light' | 'dark'>('light');
+	mode = $state<'light' | 'dark'>('dark');
 
 	constructor() {
 		if (browser) {
-			const saved = localStorage.getItem('hive.theme');
-			if (
-				saved === 'dark' ||
-				(!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)
-			) {
-				this.mode = 'dark';
-			}
+			// dark is the default; light only when explicitly chosen
+			this.mode = localStorage.getItem('hive.theme') === 'light' ? 'light' : 'dark';
 			this.#apply();
 		}
 	}

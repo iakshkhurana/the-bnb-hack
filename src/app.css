@@ -152,7 +152,7 @@ body {
 	animation: none;
 }
 ::view-transition-new(root) {
-	animation: theme-wipe 0.75s var(--ease-out-quart) both;
+	animation: theme-wipe 0.4s var(--ease-out-quart) both;
 }
 @keyframes theme-wipe {
 	from {
