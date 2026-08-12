@@ -1,83 +1,103 @@
-# HIVE, The Agent Labor Market for BNB Chain
+<div align="center">
 
-**Hire agents. Keep the keys.**
+# 🐝 HIVE
 
-HIVE is not a directory of agents, it's a labor market. Every agent has a **verifiable resume**, works inside a **leash you set** (spend cap, contract allowlist, expiry, revocable in one click), and a **live proof page** showing it beats doing the job yourself.
+### Hire agents. Keep the keys.
 
-Built for **The Smart Money Era: Build the Era** hackathon (BNB Chain, Aug–Sep 2026), Main Track (BNB Agent Studio Marketplace), with the Altana, TermiX and PancakeSwap partner tracks addressed by the same product.
+**The agent labor market for BNB Chain.** Every agent carries a verifiable resume, works inside a leash you set, and proves it beats doing the job yourself.
+
+[![CI](https://github.com/iakshkhurana/the-bnb-hack/actions/workflows/ci.yml/badge.svg)](https://github.com/iakshkhurana/the-bnb-hack/actions)
+[![Svelte 5](https://img.shields.io/badge/Svelte-5-ff3e00?logo=svelte&logoColor=white)](https://svelte.dev)
+[![BNB Chain](https://img.shields.io/badge/BNB%20Chain-mainnet%20data-f0b90b?logo=binance&logoColor=black)](https://www.bnbchain.org)
+[![Tests](https://img.shields.io/badge/tests-29%20passing-2ea44f)](src/lib)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+**[Live demo](https://the-bnb-hack.vercel.app)** · [Architecture](docs/ARCHITECTURE.md) · [Agent Advantage Report](docs/AGENT_ADVANTAGE_REPORT.md)
+
+</div>
 
 ---
 
-## The three primitives
+## The idea
 
-| Primitive | What it means | Where to see it |
+Most agent marketplaces are directories: a grid of cards, a star rating, a hire button. You are asked to trust a stranger with your money because its card says "+31% APR".
+
+HIVE treats hiring an agent like hiring a professional, built on three trust primitives:
+
+| Primitive | What it means | Where |
 |---|---|---|
-| **Resume** | Every metric declares its provenance: `LIVE` (read from BSC right now), `ON-CHAIN` (decoded history), `BACKTEST` (simulated against real market data), `CLAIMED` (unverified). No anonymous star ratings. | Any agent page, e.g. `/agents/gridhawk` |
-| **Leash** | Hiring *is* a scoped session grant: spend cap the agent cannot exceed, a contract allowlist outside which every call reverts, and an expiry. Grant and revoke stay with the owner. | The hire wizard on any agent, then `/dashboard` |
-| **Proof** | The Agent Advantage Report is a live product page: three real tasks run agent-vs-manual over identical windows, time, cost and quality measured, outputs attached, honest about the lines the human wins. | `/proof` |
+| 📄 **Resume** | Every metric declares its provenance. `LIVE` is read from BSC right now, `ON-CHAIN` is decoded history, `BACKTEST` is simulation against real market data, `CLAIMED` is unverified. No anonymous stars. | any agent page |
+| 🔒 **Leash** | Hiring is a scoped session: a hard spend cap the agent cannot exceed, a contract allowlist outside which every call reverts, and an expiry. Revoke in one click, effective immediately. | hire wizard, `/dashboard` |
+| 📊 **Proof** | The same job measured twice, with an agent and by hand, over identical windows: time, cost, quality, outputs attached. Honest about the lines the human wins. | `/proof` |
 
 ## Four categories, equal depth
 
-12 agents, 3 per category, rebalancing (PancakeSwap V3 LP ranges), grid trading (BNB/CAKE/BTC grids), yield optimisation (Venus/Lista routing), health factor monitoring (Venus liquidation protection). The category page layout is identical by construction: equal depth is architectural, not aspirational.
+Twelve agents, three per category, one identical page layout, so equal depth is architectural rather than aspirational:
 
-## Live data, no API keys
+- 🎯 **Rebalancing** · PancakeSwap V3 concentrated liquidity ranges, recentred automatically
+- 📐 **Grid trading** · buy/sell ladders on BNB, CAKE and BTC pairs, rebuilt around live price
+- 🌱 **Yield optimisation** · stables and BNB routed to the best APR across Venus, Lista and PancakeSwap
+- ❤️ **Health factor** · Venus lending positions defended from liquidation, staged and automatic
 
-Everything labelled `LIVE` is read on-chain from BSC mainnet through public RPCs in a single multicall batch, cached 15s server-side:
+## Live data, zero API keys
 
-- **Chainlink feeds**, BNB, CAKE, BTC, ETH / USD
-- **PancakeSwap V3 pools**, `slot0` price, tick, liquidity for WBNB/USDT and CAKE/WBNB
-- **Venus core pool**, supply/borrow rates for vBNB, vUSDT, vUSDC, annualised
-- **Real candles**, keyless spot market data drives the trading charts
+Everything badged `LIVE` is read on-chain from BSC mainnet in a single multicall, cached 15 seconds, and ticks on screen without a refresh:
 
-Numbers on screen tick every 15 seconds without a refresh. Cross-source consistency is verifiable in the UI (Chainlink spot vs the live pool price).
+| Source | Data |
+|---|---|
+| Chainlink feeds | BNB, CAKE, BTC, ETH / USD |
+| PancakeSwap V3 pools | `slot0` price, tick, liquidity |
+| Venus core pool | supply and borrow APY for vBNB, vUSDT, vUSDC |
+| Public spot mirror | real candles for the trading charts |
 
-## The stack (deliberately not the default)
+Cross-verification is a feature: the Chainlink price and the live pool price render side by side and agree to about 0.1%, and every contract address links to BscScan.
+
+## The judge's two-minute journey
+
+1. **Land**: live BNB chart, category doors, count-up stats
+2. **Marketplace**: filter by category, sort, compare up to three agents side by side
+3. **Agent resume**: plain-English strategy, provenance-labelled performance, live venue data at the current block, work log
+4. **Hire**: connect a real wallet (MetaMask, Trust, Binance Wallet, OKX, Phantom via EIP-6963) or the demo account, set the leash, sign once
+5. **Mission Control**: watch the budget bar burn in real time, then **revoke**, gone instantly
+
+No documentation needed, no dead ends: unknown routes land on a branded page, missing wallets fall back to demo mode, failed data refreshes serve the last snapshot.
+
+## Stack
 
 | Layer | Choice |
 |---|---|
-| Framework | **SvelteKit 2 + Svelte 5 (runes)**, compiled reactivity, no virtual DOM |
-| Language | TypeScript, `svelte-check` clean at zero errors/warnings |
-| Styling | **Tailwind CSS v4**, layered depth system, translucent hairlines, reduced-motion support |
-| Charts | **TradingView lightweight-charts** (the library exchanges use) + hand-rolled SVG sparklines/heatmaps |
-| Chain | **viem 2**, typed multicall reads, injected wallet connector, BSC mainnet + chapel testnet |
-| Data viz palette | CVD-validated blue ramp (passes adjacent-pair colorblind ΔE gates) |
-| Tests / CI | Vitest (23 tests: registry integrity, leash invariants, deterministic engine) + GitHub Actions |
+| Framework | SvelteKit 2 + Svelte 5 runes (compiled reactivity, no virtual DOM) |
+| Chain | viem 2: multicall reads, EIP-6963 wallet discovery, BSC mainnet + chapel |
+| Charts | TradingView lightweight-charts + hand-rolled SVG sparklines and heatmaps |
+| Styling | Tailwind CSS v4 design tokens: electric blue light theme, mint green dark theme, PowerPoint-style wipe on toggle |
+| Icons | Lucide (vendored via the Iconify API) + official token brand marks |
+| Quality | TypeScript strict, svelte-check clean, 29 Vitest unit tests, GitHub Actions CI |
 
-No wallet? The full hire → monitor → revoke journey works in demo mode, zero dead ends for judges.
-
-## Deploy (public URL for judging)
-
-The repo is Vercel-ready as-is (`adapter-auto` detects Vercel at build time, no env vars or API keys needed):
-
-1. Push to GitHub (done), then go to vercel.com → New Project → import `the-bnb-hack`
-2. Framework preset: SvelteKit (auto-detected) · build command `npm run build` · no env vars
-3. Deploy. The live BSC data works immediately, public RPCs only.
-
-Netlify or any Node host works the same way.
-
-## Run it
+## Quickstart
 
 ```sh
 npm install
 npm run dev        # http://localhost:5173
-npm test           # 23 unit tests
-npm run check      # svelte-check
+```
+
+```sh
+npm test           # 29 unit tests: registry integrity, leash invariants,
+                   # deterministic engine, proof-report honesty guards
+npm run check      # svelte-check, 0 errors
 npm run build      # production build
 ```
 
-## The judge's two-minute path
+Deploying: push to GitHub and import into Vercel. No environment variables, no API keys, nothing to expire.
 
-1. **Land** → live BNB chart, category doors with live aggregate stats
-2. **Marketplace** → filter by category, sort, compare up to 3 agents side by side
-3. **Agent page** → plain-English strategy, provenance-labelled performance, live venue data at the current block, work log
-4. **Hire** → set the leash (cap / allowlist / expiry) → sign → session active
-5. **Mission Control** → watch the budget bar burn in real time → **Revoke** → authority gone, immediately
+## Honesty model
 
-## Honesty model & roadmap
-
-Agent performance curves and work logs are generated by a deterministic engine and labelled `BACKTEST`/`TESTNET`, never passed off as mainnet history. The interfaces are exactly what a [Ponder](https://ponder.sh) indexer feeds once the agent fleet (BNB Agent Studio CLI workers on Altana self-custodial wallets) runs on mainnet: the swap is a transport change, not a redesign. Session grants mirror the Altana Keystore session shape 1:1, `sessionKey`, cap, allowlist, expiry, so on-chain registration and ERC-8183 hiring drop into the existing flow.
+Agent performance curves and work logs are generated by a deterministic seeded engine and labelled `BACKTEST` / `TESTNET`, never passed off as mainnet history. The interfaces match what a [Ponder](https://ponder.sh) indexer emits once the agent fleet (BNB Agent Studio CLI workers on Altana self-custodial wallets) runs on mainnet: swapping the generator for the indexer touches zero components. Session grants mirror the Altana Keystore shape (`sessionKey`, cap, allowlist, expiry), so on-chain registration and ERC-8183 hiring drop into the existing flow.
 
 ## Docs
 
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), system design, data flow, module map
-- [`docs/AGENT_ADVANTAGE_REPORT.md`](docs/AGENT_ADVANTAGE_REPORT.md), the TermiX-required report (also live at `/proof`)
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): system design, data flow, module map, design decisions
+- [`docs/AGENT_ADVANTAGE_REPORT.md`](docs/AGENT_ADVANTAGE_REPORT.md): the TermiX-required report, also live at `/proof`
+
+## License
+
+MIT © Aksh Khurana. Built for The Smart Money Era hackathon (BNB Chain, 2026).

@@ -3,20 +3,26 @@
 	import { cubicOut } from 'svelte/easing';
 	import { wallet } from '$lib/wallet/wallet.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
+	import WalletBrandIcon from './WalletBrandIcon.svelte';
 
-	const INSTALL_LINKS = [
-		{ name: 'MetaMask', url: 'https://metamask.io/download' },
-		{ name: 'Trust Wallet', url: 'https://trustwallet.com/download' },
-		{ name: 'Binance Wallet', url: 'https://www.binance.com/en/web3wallet' },
-		{ name: 'OKX Wallet', url: 'https://web3.okx.com/download' }
+	const POPULAR = [
+		{ key: 'metamask', match: 'metamask', name: 'MetaMask', url: 'https://metamask.io/download' },
+		{ key: 'trust', match: 'trust', name: 'Trust Wallet', url: 'https://trustwallet.com/download' },
+		{ key: 'binance', match: 'binance', name: 'Binance Wallet', url: 'https://www.binance.com/en/web3wallet' },
+		{ key: 'okx', match: 'okx', name: 'OKX Wallet', url: 'https://web3.okx.com/download' },
+		{ key: 'phantom', match: 'phantom', name: 'Phantom', url: 'https://phantom.com/download' }
 	];
 
 	const detectedNames = $derived(wallet.options.map((o) => o.info.name.toLowerCase()));
-	const missing = $derived(
-		INSTALL_LINKS.filter(
-			(l) => !detectedNames.some((n) => n.includes(l.name.split(' ')[0].toLowerCase()))
-		)
+	const notInstalled = $derived(
+		POPULAR.filter((p) => !detectedNames.some((n) => n.includes(p.match)))
 	);
+
+	let showMore = $state(false);
+	$effect(() => {
+		// nothing detected: the install list IS the main content
+		if (wallet.modalOpen) showMore = wallet.options.length === 0 && !wallet.injected;
+	});
 </script>
 
 {#if wallet.modalOpen}
@@ -30,7 +36,7 @@
 		tabindex="-1"
 	>
 		<div
-			class="w-full max-w-sm rounded-t-card bg-card p-6 shadow-rail sm:rounded-card"
+			class="max-h-[92vh] w-full max-w-sm overflow-y-auto rounded-t-card bg-card p-6 shadow-rail sm:rounded-card"
 			in:fly={{ y: 28, duration: 380, easing: cubicOut }}
 			out:fly={{ y: 16, duration: 180, easing: cubicOut }}
 		>
@@ -81,28 +87,52 @@
 						DETECTED
 					</span>
 				</button>
-			{:else}
-				<div class="rounded-2xl border border-line bg-page p-4">
-					<p class="text-[13px] font-semibold">No wallet detected</p>
-					<p class="mt-0.5 text-[12px] leading-relaxed text-sub">
-						Install one of these, then refresh. All of them speak BNB Smart Chain.
-					</p>
-				</div>
 			{/if}
 
-			{#if missing.length && !wallet.options.length}
-				<div class="mt-2 grid grid-cols-2 gap-2">
-					{#each missing as link (link.name)}
-						<a
-							href={link.url}
-							target="_blank"
-							rel="noreferrer"
-							class="flex items-center justify-between rounded-xl border border-line px-3 py-2.5 text-[12px] font-semibold text-sub transition-colors hover:border-cta hover:text-ink"
-						>
-							{link.name} <Icon name="external" size={11} />
-						</a>
-					{/each}
-				</div>
+			<!-- other popular wallets: faded icons, install links -->
+			{#if notInstalled.length}
+				{#if wallet.options.length || wallet.injected}
+					<button
+						onclick={() => (showMore = !showMore)}
+						class="mt-3 flex w-full items-center justify-between rounded-2xl border border-line px-4 py-3 text-[13px] font-semibold text-sub transition-colors hover:border-line-strong hover:text-ink"
+					>
+						<span class="flex items-center gap-2">
+							<span class="flex items-center -space-x-1.5 opacity-45 grayscale">
+								{#each notInstalled.slice(0, 4) as p (p.key)}
+									<WalletBrandIcon name={p.key} size={20} />
+								{/each}
+							</span>
+							More wallets
+						</span>
+						<Icon name="chevron-down" size={14} class="transition-transform duration-300 {showMore ? 'rotate-180' : ''}" />
+					</button>
+				{:else}
+					<p class="mb-2 rounded-2xl border border-line bg-page p-3.5 text-[12px] leading-relaxed text-sub">
+						<b class="text-ink">No wallet detected.</b> Install one below, then refresh. All of them
+						speak BNB Smart Chain.
+					</p>
+				{/if}
+
+				{#if showMore}
+					<div class="mt-2 space-y-1.5" transition:fly={{ y: -6, duration: 220, easing: cubicOut }}>
+						{#each notInstalled as p (p.key)}
+							<a
+								href={p.url}
+								target="_blank"
+								rel="noreferrer"
+								class="group flex items-center gap-3 rounded-2xl border border-line px-3 py-2.5 transition-all hover:border-line-strong"
+							>
+								<span class="opacity-40 grayscale transition-all duration-200 group-hover:opacity-100 group-hover:grayscale-0">
+									<WalletBrandIcon name={p.key} size={26} />
+								</span>
+								<span class="text-[13px] font-semibold text-sub group-hover:text-ink">{p.name}</span>
+								<span class="ml-auto flex items-center gap-1 text-[11px] font-bold text-faint group-hover:text-accent">
+									Install <Icon name="external" size={10} />
+								</span>
+							</a>
+						{/each}
+					</div>
+				{/if}
 			{/if}
 
 			<div class="my-4 flex items-center gap-3">
