@@ -21,17 +21,11 @@
 	/** dark = rendered on a night card; otherwise follow the app theme */
 	const onDarkSurface = $derived(dark || theme.mode === 'dark');
 	const palette = $derived({
-		text: onDarkSurface ? 'rgba(255,255,255,0.5)' : '#898781',
-		grid: onDarkSurface ? 'rgba(255,255,255,0.07)' : '#eef0f3',
-		line: dark ? (theme.mode === 'dark' ? '#f0b90b' : '#ffffff') : theme.mode === 'dark' ? '#f0b90b' : '#2a78d6',
-		fill: dark
-			? theme.mode === 'dark'
-				? 'rgba(240,185,11,0.16)'
-				: 'rgba(255,255,255,0.16)'
-			: theme.mode === 'dark'
-				? 'rgba(240,185,11,0.14)'
-				: 'rgba(42,120,214,0.18)',
-		crosshair: onDarkSurface ? 'rgba(255,255,255,0.35)' : '#c3c2b7'
+		text: onDarkSurface ? 'rgba(255,255,255,0.5)' : '#929aa5',
+		grid: onDarkSurface ? 'rgba(255,255,255,0.07)' : '#efeff1',
+		line: onDarkSurface ? '#f0b90b' : '#d9a509',
+		fill: onDarkSurface ? 'rgba(240,185,11,0.16)' : 'rgba(240,185,11,0.18)',
+		crosshair: onDarkSurface ? 'rgba(255,255,255,0.35)' : '#c9ced6'
 	});
 
 	onMount(() => {

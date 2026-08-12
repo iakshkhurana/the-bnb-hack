@@ -66,7 +66,7 @@ export const CATEGORY_META: Record<
 		short: 'LP ranges, reset automatically',
 		icon: 'range',
 		blurb:
-			'Manages concentrated-liquidity ranges on PancakeSwap V3 — recentring positions when price drifts so liquidity keeps earning instead of sitting idle.',
+			'Manages concentrated-liquidity ranges on PancakeSwap V3, recentring positions when price drifts so liquidity keeps earning instead of sitting idle.',
 		kpi: 'Fees captured'
 	},
 	grid: {
@@ -74,7 +74,7 @@ export const CATEGORY_META: Record<
 		short: 'Automated grid orders',
 		icon: 'grid',
 		blurb:
-			'Places and manages ladders of buy/sell orders around live price — harvesting volatility on BNB pairs without a human watching the chart.',
+			'Places and manages ladders of buy/sell orders around live price, harvesting volatility on BNB pairs without a human watching the chart.',
 		kpi: 'Win rate'
 	},
 	yield: {
@@ -90,7 +90,7 @@ export const CATEGORY_META: Record<
 		short: 'Liquidation protection',
 		icon: 'heart',
 		blurb:
-			'Monitors lending positions around the clock — topping up collateral or unwinding debt before the health factor ever reaches the liquidation line.',
+			'Monitors lending positions around the clock, topping up collateral or unwinding debt before the health factor ever reaches the liquidation line.',
 		kpi: 'Saves executed'
 	}
 };

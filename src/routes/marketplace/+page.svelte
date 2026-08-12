@@ -59,10 +59,10 @@
 
 	const ROWS: { label: string; value: (a: (typeof AGENTS)[0]) => string; strong?: boolean }[] = [
 		{ label: 'Category', value: (a) => CATEGORY_META[a.category].label },
-		{ label: '30d APR', value: (a) => (a.category === 'health' ? '—' : pct(a.metrics.apr30d)), strong: true },
-		{ label: 'Max drawdown', value: (a) => (a.category === 'health' ? '—' : `${a.metrics.maxDrawdown.toFixed(1)}%`) },
-		{ label: 'Win rate', value: (a) => (a.metrics.winRate != null ? `${a.metrics.winRate.toFixed(1)}%` : '—') },
-		{ label: 'Sharpe', value: (a) => (a.metrics.sharpe != null ? a.metrics.sharpe.toFixed(1) : '—') },
+		{ label: '30d APR', value: (a) => (a.category === 'health' ? '-' : pct(a.metrics.apr30d)), strong: true },
+		{ label: 'Max drawdown', value: (a) => (a.category === 'health' ? '-' : `${a.metrics.maxDrawdown.toFixed(1)}%`) },
+		{ label: 'Win rate', value: (a) => (a.metrics.winRate != null ? `${a.metrics.winRate.toFixed(1)}%` : '-') },
+		{ label: 'Sharpe', value: (a) => (a.metrics.sharpe != null ? a.metrics.sharpe.toFixed(1) : '-') },
 		{ label: 'TVL', value: (a) => usd(a.metrics.tvlUsd, { compact: true }), strong: true },
 		{ label: 'Users', value: (a) => a.metrics.users.toLocaleString() },
 		{ label: 'Actions (30d)', value: (a) => a.metrics.actions30d.toLocaleString() },
@@ -77,7 +77,7 @@
 </script>
 
 <svelte:head>
-	<title>Marketplace — HIVE</title>
+	<title>Marketplace · HIVE</title>
 </svelte:head>
 
 <div class="py-4">

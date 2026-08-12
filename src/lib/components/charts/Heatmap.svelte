@@ -1,12 +1,12 @@
 <script lang="ts">
 	/**
-	 * Activity heatmap — weeks × 7 grid, sequential blue ramp (magnitude).
+	 * Activity heatmap, weeks × 7 grid, sequential blue ramp (magnitude).
 	 * Zero-days recede to a neutral wash; hover shows the exact count.
 	 */
 	let { data, label = 'actions' }: { data: number[][]; label?: string } = $props();
 
-	// sequential blue steps from the validated palette
-	const RAMP = ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#256abf', '#104281'];
+	// sequential one-hue yellow ramp, light to dark (magnitude)
+	const RAMP = ['#fdeec2', '#fadd8a', '#f6cc52', '#f0b90b', '#c99400', '#8f6a00'];
 	const ZERO = 'var(--heat-zero)';
 
 	const max = $derived(Math.max(1, ...data.flat()));

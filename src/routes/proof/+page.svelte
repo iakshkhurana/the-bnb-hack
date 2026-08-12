@@ -9,7 +9,7 @@
 </script>
 
 <svelte:head>
-	<title>Agent Advantage Report — HIVE</title>
+	<title>Agent Advantage Report · HIVE</title>
 </svelte:head>
 
 <div class="py-4">
@@ -22,9 +22,9 @@
 			Does hiring an agent beat doing the job yourself?
 		</h1>
 		<p class="mt-3 text-[15px] leading-relaxed text-sub">
-			We ran the same three jobs twice over identical windows and market data — once through an
+			We ran the same three jobs twice over identical windows and market data, once through an
 			agent hired on HIVE, once the way a human actually does it. Time, cost and output quality,
-			measured, with the outputs attached. One task is trading — the high-stakes case.
+			measured, with the outputs attached. One task is trading, the high-stakes case.
 		</p>
 	</div>
 
@@ -139,9 +139,9 @@
 	<Card class="mt-10">
 		<h2 class="mb-2 text-[15px] font-bold">Methodology & honesty</h2>
 		<ul class="space-y-2 text-[13px] leading-relaxed text-sub">
-			<li class="flex gap-2"><Icon name="check" size={14} class="mt-0.5 shrink-0 text-good-text" /> Both runs of every task use the same window, the same starting capital and the same real market data — the only variable is who does the work.</li>
+			<li class="flex gap-2"><Icon name="check" size={14} class="mt-0.5 shrink-0 text-good-text" /> Both runs of every task use the same window, the same starting capital and the same real market data, the only variable is who does the work.</li>
 			<li class="flex gap-2"><Icon name="check" size={14} class="mt-0.5 shrink-0 text-good-text" /> Every number carries a provenance badge. BACKTEST means simulated against real historical data; entries flip to ON-CHAIN with BscScan receipts as the agents' mainnet history is indexed.</li>
-			<li class="flex gap-2"><Icon name="check" size={14} class="mt-0.5 shrink-0 text-good-text" /> Where the manual run wins a line (usually raw gas), it is shown winning — the report measures, it does not advertise.</li>
+			<li class="flex gap-2"><Icon name="check" size={14} class="mt-0.5 shrink-0 text-good-text" /> Where the manual run wins a line (usually raw gas), it is shown winning, the report measures, it does not advertise.</li>
 		</ul>
 		<div class="mt-5 flex flex-wrap gap-3">
 			<Button variant="primary" href="/marketplace">Hire the agents measured here <Icon name="arrow-up-right" size={14} /></Button>

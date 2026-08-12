@@ -1,10 +1,10 @@
 /**
- * Session store — the "leash". A hire on HIVE is a scoped session grant:
+ * Session store, the "leash". A hire on HIVE is a scoped session grant:
  * spend cap, contract allowlist, expiry. Grant and revoke stay with the
  * owner; revocation is immediate.
  *
  * MVP persistence is localStorage with simulated grant/revoke receipts,
- * mirroring the Altana Keystore session shape 1:1 — the swap to real
+ * mirroring the Altana Keystore session shape 1:1, the swap to real
  * on-chain registration is a transport change, not a redesign.
  */
 import { browser } from '$app/environment';
@@ -96,7 +96,7 @@ class SessionStore {
 		return this.sessions.filter((s) => s.owner === owner.toLowerCase());
 	}
 
-	/** BNB consumed so far — grows in real time, capped at 92% of the leash. */
+	/** BNB consumed so far, grows in real time, capped at 92% of the leash. */
 	spent(s: Session): number {
 		const end = s.status === 'revoked' ? (s.revokedAt ?? Date.now()) : Date.now();
 		const hours = Math.max(0, (Math.min(end, s.expiresAt) - s.createdAt) / 3_600_000);

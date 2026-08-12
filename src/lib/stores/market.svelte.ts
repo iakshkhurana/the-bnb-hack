@@ -1,5 +1,5 @@
 /**
- * Client-side live market store — polls /api/market every 15s while any
+ * Client-side live market store, polls /api/market every 15s while any
  * component subscribes. Numbers on screen tick without a refresh.
  */
 import { browser } from '$app/environment';
@@ -28,7 +28,7 @@ class MarketStore {
 		}
 	}
 
-	/** Call from $effect — returns a cleanup fn. */
+	/** Call from $effect, returns a cleanup fn. */
 	subscribe(): () => void {
 		this.#subscribers++;
 		if (this.#subscribers === 1 && browser) {

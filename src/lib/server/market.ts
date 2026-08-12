@@ -1,5 +1,5 @@
 /**
- * Live market service — one multicall batch against BSC mainnet,
+ * Live market service, one multicall batch against BSC mainnet,
  * cached in-memory for 15s so judging traffic never rate-limits the RPCs.
  */
 import { bscClient } from '$lib/chain/client';
@@ -64,7 +64,7 @@ async function fetch24hChanges(fetchFn: typeof fetch): Promise<Record<string, nu
 		}
 		return out;
 	} catch {
-		return {}; // change chips simply hide — never a dead end
+		return {}; // change chips simply hide, never a dead end
 	}
 }
 

@@ -1,5 +1,5 @@
 /**
- * Wallet store — injected connector (MetaMask, Rabby, Trust) via viem.
+ * Wallet store, injected connector (MetaMask, Rabby, Trust) via viem.
  * Falls back to a deterministic demo account when no provider is installed,
  * so the full hire → monitor → revoke journey works for every judge.
  */
@@ -37,7 +37,7 @@ class Wallet {
 		try {
 			const eth = this.provider;
 			if (!eth) {
-				// No injected wallet — demo mode keeps the journey dead-end free.
+				// No injected wallet, demo mode keeps the journey dead-end free.
 				this.demo = true;
 				this.address = DEMO_ADDRESS;
 				this.chainId = bsc.id;

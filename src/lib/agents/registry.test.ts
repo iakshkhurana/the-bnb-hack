@@ -8,7 +8,7 @@ describe('registry integrity', () => {
 		expect(AGENTS).toHaveLength(12);
 	});
 
-	it('gives every category equal depth — 3 agents each', () => {
+	it('gives every category equal depth, 3 agents each', () => {
 		for (const c of CATEGORIES) {
 			expect(byCategory(c), `category ${c}`).toHaveLength(3);
 		}
@@ -41,7 +41,7 @@ describe('registry integrity', () => {
 describe('performance engine', () => {
 	const agent = AGENTS[0];
 
-	it('is deterministic — same seed, same curve', () => {
+	it('is deterministic, same seed, same curve', () => {
 		expect(equityCurve(agent, 30)).toEqual(equityCurve(agent, 30));
 	});
 

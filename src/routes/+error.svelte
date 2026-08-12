@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>{page.status} — HIVE</title>
+	<title>{page.status} · HIVE</title>
 </svelte:head>
 
 <div class="grid min-h-[60vh] place-items-center py-16 text-center">

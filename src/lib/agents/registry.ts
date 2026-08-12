@@ -1,5 +1,5 @@
 /**
- * The HIVE agent registry — 12 agents, 3 per category, every category
+ * The HIVE agent registry, 12 agents, 3 per category, every category
  * first-class. Allowlists reference the real BSC contracts each agent is
  * scoped to; wallets are the agents' own self-custodial (Altana) accounts.
  */
@@ -33,7 +33,7 @@ export const AGENTS: Agent[] = [
 		wallet: '0x8f3a91b27c40d15e6b7a02c9df34e8a1b5c6d701',
 		network: 'testnet',
 		description:
-			'RangeKeeper manages a concentrated-liquidity position in the PancakeSwap V3 WBNB/USDT 0.05% pool. When price drifts within 12% of either range edge, it withdraws, recentres the range around the live tick, compounds earned fees back in, and re-deposits — all in one transaction bundle.',
+			'RangeKeeper manages a concentrated-liquidity position in the PancakeSwap V3 WBNB/USDT 0.05% pool. When price drifts within 12% of either range edge, it withdraws, recentres the range around the live tick, compounds earned fees back in, and re-deposits, all in one transaction bundle.',
 		strategy: [
 			'Watches the pool tick every block against the position range',
 			'Triggers a recentre when price crosses the 12% edge buffer',
@@ -77,7 +77,7 @@ export const AGENTS: Agent[] = [
 		wallet: '0x2b7e44a90cf1d2853a6b1e07c48f92d3a5e8b102',
 		network: 'testnet',
 		description:
-			'TideMaster runs an adaptive-width strategy on the CAKE/WBNB 0.25% pool. Instead of fixed ranges, it sizes each range from realised volatility — tight ranges in calm markets for maximum fee capture, wide ranges in storms to avoid churn.',
+			'TideMaster runs an adaptive-width strategy on the CAKE/WBNB 0.25% pool. Instead of fixed ranges, it sizes each range from realised volatility, tight ranges in calm markets for maximum fee capture, wide ranges in storms to avoid churn.',
 		strategy: [
 			'Computes 7-day realised volatility from live pool ticks',
 			'Sets range width to 2.5× realised vol, recentred on price',
@@ -207,7 +207,7 @@ export const AGENTS: Agent[] = [
 		wallet: '0xa48b03e5d17cf2960b8d4a3c5e92f80c1d6b7305',
 		network: 'testnet',
 		description:
-			'LatticeX trades CAKE/USDT with a dense 40-level grid and sub-percent spacing — many small wins that compound. Higher turnover, higher risk: the strategy leans on CAKE volatility and throttles itself when spreads compress.',
+			'LatticeX trades CAKE/USDT with a dense 40-level grid and sub-percent spacing, many small wins that compound. Higher turnover, higher risk: the strategy leans on CAKE volatility and throttles itself when spreads compress.',
 		strategy: [
 			'40 arithmetic levels spaced 0.45% apart',
 			'Per-level size capped at 2.5% of allocated capital',
@@ -247,7 +247,7 @@ export const AGENTS: Agent[] = [
 		wallet: '0x7e91d40cb56af8324e0d9c1b7a85e63f92c4d506',
 		network: 'testnet',
 		description:
-			'MeshTrader runs a wide, sparse grid on BTCB/USDT — 12 levels across a ±18% band. It trades rarely, wins big when volatility mean-reverts, and holds inventory through drawdowns instead of stopping out.',
+			'MeshTrader runs a wide, sparse grid on BTCB/USDT, 12 levels across a ±18% band. It trades rarely, wins big when volatility mean-reverts, and holds inventory through drawdowns instead of stopping out.',
 		strategy: [
 			'12 levels across ±18%, spacing widens away from spot',
 			'Fills sized progressively larger toward band edges',
@@ -289,12 +289,12 @@ export const AGENTS: Agent[] = [
 		wallet: '0xc59f271e83ad04b6d8e12f5c09b7a3e64d18f607',
 		network: 'testnet',
 		description:
-			'NectarRouter watches supply APYs for USDT and USDC across Venus, Lista and PancakeSwap stable pools. When the top venue changes and the spread beats the migration cost, it moves — netting you the best available stable yield without ever thinking about it.',
+			'NectarRouter watches supply APYs for USDT and USDC across Venus, Lista and PancakeSwap stable pools. When the top venue changes and the spread beats the migration cost, it moves, netting you the best available stable yield without ever thinking about it.',
 		strategy: [
 			'Polls venue APYs every block via on-chain reads',
 			'Migrates when new venue beats current by >0.4% net of gas',
 			'Caps any single venue at 60% of managed capital',
-			'Only whitelisted blue-chip venues — no exotic collateral'
+			'Only whitelisted blue-chip venues, no exotic collateral'
 		],
 		venue: 'Venus · Lista · PancakeSwap',
 		venusSymbols: ['vUSDT', 'vUSDC'],
@@ -376,11 +376,11 @@ export const AGENTS: Agent[] = [
 		wallet: '0x6b04e92fa1c8d73b5e26a09cf47d81b3e5a2c909',
 		network: 'testnet',
 		description:
-			'HarvestPilot automates the boring half of farming: claiming CAKE rewards, swapping to your target asset, and re-staking — timed to gas conditions and reward decay, not to when you happen to remember.',
+			'HarvestPilot automates the boring half of farming: claiming CAKE rewards, swapping to your target asset, and re-staking, timed to gas conditions and reward decay, not to when you happen to remember.',
 		strategy: [
 			'Claims when pending rewards exceed 4× estimated gas',
 			'Swaps rewards via the route with lowest live slippage',
-			'Compounds into the source farm or routes to stables — your pick',
+			'Compounds into the source farm or routes to stables, your pick',
 			'Batches actions into off-peak gas windows'
 		],
 		venue: 'PancakeSwap farms · Venus',
@@ -422,12 +422,12 @@ export const AGENTS: Agent[] = [
 		wallet: '0xd17e58b3fa2c94065b8e01d7c3af62e94b5c8a10',
 		network: 'testnet',
 		description:
-			'Sentinel watches your Venus health factor every block. If it decays toward your danger threshold, Sentinel acts in stages: first claiming and depositing pending rewards, then topping up collateral from a reserve you pre-approve, and as a last resort repaying debt — always the cheapest path back to safety.',
+			'Sentinel watches your Venus health factor every block. If it decays toward your danger threshold, Sentinel acts in stages: first claiming and depositing pending rewards, then topping up collateral from a reserve you pre-approve, and as a last resort repaying debt, always the cheapest path back to safety.',
 		strategy: [
 			'Reads health factor every block via on-chain calls',
 			'Stage 1 at HF 1.35: deposit pending rewards as collateral',
 			'Stage 2 at HF 1.20: top up from your approved reserve',
-			'Stage 3 at HF 1.08: repay debt directly — never liquidated'
+			'Stage 3 at HF 1.08: repay debt directly, never liquidated'
 		],
 		venue: 'Venus core pool',
 		venusSymbols: ['vBNB', 'vUSDT'],
@@ -464,7 +464,7 @@ export const AGENTS: Agent[] = [
 		wallet: '0x48c2f91ea05bd7364c8e5a12d9bf03e78a4d6b11',
 		network: 'testnet',
 		description:
-			'PulseGuard manages leveraged loopers. Rather than a single panic threshold, it continuously trims leverage as volatility rises — small deleveraging steps in calm order flow beat one giant unwind in a crash.',
+			'PulseGuard manages leveraged loopers. Rather than a single panic threshold, it continuously trims leverage as volatility rises, small deleveraging steps in calm order flow beat one giant unwind in a crash.',
 		strategy: [
 			'Targets a volatility-scaled health factor floor (1.4–1.8)',
 			'Trims 5–10% of debt per step when drifting under target',
@@ -507,11 +507,11 @@ export const AGENTS: Agent[] = [
 		wallet: '0xe94b7c25fd18a3062e9c04b5f8ad71c3b6e2d912',
 		network: 'testnet',
 		description:
-			'Lifeline is the minimal health monitor: one job, done perfectly. It watches your health factor and repays just enough debt from your wallet to stay above your line. No strategy, no leverage games — a dead-simple guardian for small positions.',
+			'Lifeline is the minimal health monitor: one job, done perfectly. It watches your health factor and repays just enough debt from your wallet to stay above your line. No strategy, no leverage games, a dead-simple guardian for small positions.',
 		strategy: [
 			'Single threshold you set (default HF 1.15)',
 			'Repays the minimum debt needed to restore HF 1.30',
-			'Uses only funds in your wallet — never touches collateral',
+			'Uses only funds in your wallet, never touches collateral',
 			'Sends a heartbeat receipt after every check-in'
 		],
 		venue: 'Venus core pool',

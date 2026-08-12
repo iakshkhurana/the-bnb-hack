@@ -26,11 +26,11 @@
 	let priceLines: any[] = [];
 
 	const palette = $derived({
-		text: theme.mode === 'dark' ? 'rgba(255,255,255,0.5)' : '#898781',
-		grid: theme.mode === 'dark' ? 'rgba(255,255,255,0.07)' : '#eef0f3',
-		up: theme.mode === 'dark' ? '#2ebd85' : '#0ca30c',
-		down: theme.mode === 'dark' ? '#f6465d' : '#d03b3b',
-		level: theme.mode === 'dark' ? 'rgba(240,185,11,0.5)' : 'rgba(42,120,214,0.45)'
+		text: theme.mode === 'dark' ? 'rgba(255,255,255,0.5)' : '#929aa5',
+		grid: theme.mode === 'dark' ? 'rgba(255,255,255,0.07)' : '#efeff1',
+		up: '#0ecb81',
+		down: '#f6465d',
+		level: theme.mode === 'dark' ? 'rgba(240,185,11,0.5)' : 'rgba(201,148,0,0.55)'
 	});
 
 	function drawLevels(levels: number[]) {

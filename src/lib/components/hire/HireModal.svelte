@@ -124,7 +124,7 @@
 				<!-- spend cap -->
 				<label class="mb-1.5 block text-[13px] font-semibold" for="cap">Spend cap</label>
 				<p class="mb-2 text-[12px] text-sub">
-					The hard ceiling this agent can move or spend. It can never exceed this — not by one wei.
+					The hard ceiling this agent can move or spend. It can never exceed this, not by one wei.
 				</p>
 				<div class="mb-1 flex items-center gap-3 rounded-2xl border border-line bg-page p-3">
 					<input
@@ -213,7 +213,7 @@
 						<ul class="space-y-2 text-[13px] text-sub">
 							<li class="flex items-center gap-2"><Icon name="x" size={14} class="text-crit" /> Withdraw to any address but yours</li>
 							<li class="flex items-center gap-2"><Icon name="x" size={14} class="text-crit" /> Touch contracts outside the allowlist</li>
-							<li class="flex items-center gap-2"><Icon name="x" size={14} class="text-crit" /> Outlive your revoke — one click, immediate</li>
+							<li class="flex items-center gap-2"><Icon name="x" size={14} class="text-crit" /> Outlive your revoke, one click, immediate</li>
 						</ul>
 					</div>
 					<div class="flex items-center justify-between rounded-2xl border border-line p-4 text-[13px]">
@@ -232,7 +232,7 @@
 				</div>
 				{#if !wallet.connected}
 					<p class="mt-3 text-center text-[12px] text-faint">
-						No wallet? A demo session works end-to-end — connect happens automatically.
+						No wallet? A demo session works end-to-end, connect happens automatically.
 					</p>
 				{/if}
 			{:else if granted}

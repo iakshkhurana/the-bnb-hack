@@ -59,7 +59,7 @@
 </script>
 
 <svelte:head>
-	<title>HIVE — Hire on-chain agents on BNB Chain</title>
+	<title>HIVE, Hire on-chain agents on BNB Chain</title>
 </svelte:head>
 
 <!-- ═══ Hero ═══ -->
@@ -75,8 +75,8 @@
 			Hire agents.<br />Keep the keys.
 		</h1>
 		<p class="mt-5 max-w-md text-[15px] leading-relaxed text-sub">
-			Every agent on HIVE has a verifiable resume, works inside a leash you set — spend cap,
-			contract allowlist, expiry — and can be fired in one click. Rebalancing, grid trading,
+			Every agent on HIVE has a verifiable resume, works inside a leash you set, spend cap,
+			contract allowlist, expiry, and can be fired in one click. Rebalancing, grid trading,
 			yield routing and liquidation protection, side by side.
 		</p>
 		<div class="mt-7 flex flex-wrap gap-3">
@@ -88,7 +88,7 @@
 		<div class="mt-7 flex flex-wrap items-center gap-2">
 			<Badge kind="live" />
 			<span class="text-[12px] text-faint">
-				Chainlink · PancakeSwap V3 · Venus — read on-chain, block {market.snapshot.block
+				Chainlink · PancakeSwap V3 · Venus, read on-chain, block {market.snapshot.block
 					? `#${num(market.snapshot.block, 0)}`
 					: '…'}
 			</span>
@@ -103,7 +103,7 @@
 				</p>
 				<div class="mt-1 flex items-baseline gap-2.5">
 					<span class="tabular text-3xl font-bold">
-						{bnb?.price ? usd(bnb.price) : '——'}
+						{bnb?.price ? usd(bnb.price) : '...'}
 					</span>
 					{#if bnb?.change24h != null}
 						<span class="rounded-full bg-white px-2 py-0.5">
@@ -145,7 +145,7 @@
 	<div class="mb-5 flex items-end justify-between">
 		<div>
 			<h2 class="text-2xl font-bold tracking-tight">Four jobs. Twelve specialists.</h2>
-			<p class="mt-1 text-[14px] text-sub">Every category first-class — pick the job, compare the agents.</p>
+			<p class="mt-1 text-[14px] text-sub">Every category first-class, pick the job, compare the agents.</p>
 		</div>
 		<a href="/marketplace" class="hidden items-center gap-1 text-[13px] font-semibold text-accent hover:underline sm:flex">
 			View all <Icon name="chevron-right" size={14} />
@@ -193,12 +193,12 @@
 		<div class="mb-8 max-w-lg">
 			<h2 class="text-2xl font-bold tracking-tight">Hiring is a leash, not a leap of faith</h2>
 			<p class="mt-2 text-[14px] leading-relaxed text-white/55">
-				Agents hold their own wallets. You grant a scoped session — never your keys — and
+				Agents hold their own wallets. You grant a scoped session, never your keys, and
 				authority is readable on-chain, not claimed in a pitch.
 			</p>
 		</div>
 		<div class="grid gap-6 sm:grid-cols-3">
-			{#each [{ icon: 'key', title: 'Set the leash', text: 'Spend cap, contract allowlist, expiry. Sign once — the session key can do exactly this and nothing else.' }, { icon: 'bolt', title: 'The agent works', text: 'Every action lands on BSC under the session key. Watch budget burn and the work log in Mission Control.' }, { icon: 'revoke', title: 'Fire it anytime', text: 'One click revokes the session immediately. No support ticket, no cooldown, no residual authority.' }] as step, i (step.title)}
+			{#each [{ icon: 'key', title: 'Set the leash', text: 'Spend cap, contract allowlist, expiry. Sign once, the session key can do exactly this and nothing else.' }, { icon: 'bolt', title: 'The agent works', text: 'Every action lands on BSC under the session key. Watch budget burn and the work log in Mission Control.' }, { icon: 'revoke', title: 'Fire it anytime', text: 'One click revokes the session immediately. No support ticket, no cooldown, no residual authority.' }] as step, i (step.title)}
 				<div class="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
 					<div class="mb-3 flex items-center gap-3">
 						<span class="grid size-9 place-items-center rounded-full bg-white text-[#0b0c0f]">

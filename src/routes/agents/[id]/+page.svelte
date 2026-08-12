@@ -67,7 +67,7 @@
 </script>
 
 <svelte:head>
-	<title>{agent.name} — HIVE</title>
+	<title>{agent.name} · HIVE</title>
 </svelte:head>
 
 <div class="py-4">
@@ -104,7 +104,7 @@
 		<div class="w-full sm:w-auto">
 			{#if activeSession}
 				<Button variant="ghost" size="lg" href="/dashboard" class="w-full sm:w-auto">
-					<span class="size-2 rounded-full bg-good"></span> Session active — Mission Control
+					<span class="size-2 rounded-full bg-good"></span> Session active, Mission Control
 				</Button>
 			{:else}
 				<Button variant="primary" size="lg" class="w-full sm:w-auto" onclick={() => (hireOpen = true)}>
@@ -134,7 +134,7 @@
 		<Card class="!p-4">
 			<p class="text-[11px] font-medium text-faint">{agent.metrics.winRate != null ? 'Win rate' : 'Sharpe'}</p>
 			<p class="tabular mt-1.5 text-xl font-bold">
-				{agent.metrics.winRate != null ? `${agent.metrics.winRate.toFixed(1)}%` : (agent.metrics.sharpe?.toFixed(1) ?? '—')}
+				{agent.metrics.winRate != null ? `${agent.metrics.winRate.toFixed(1)}%` : (agent.metrics.sharpe?.toFixed(1) ?? '-')}
 			</p>
 		</Card>
 		<Card class="!p-4">
@@ -295,7 +295,7 @@
 					</div>
 				</dl>
 				<p class="mt-3 text-[11px] leading-relaxed text-faint">
-					You tune all three before signing. The session key can do exactly this — nothing else.
+					You tune all three before signing. The session key can do exactly this, nothing else.
 				</p>
 			</Card>
 
@@ -304,7 +304,7 @@
 				<p class="text-lg font-bold">{agent.fee.label}</p>
 				<p class="mt-1 text-[12px] text-sub">
 					{agent.fee.type === 'performance'
-						? 'Charged only on realised gains — nothing when it does not perform.'
+						? 'Charged only on realised gains, nothing when it does not perform.'
 						: agent.fee.type === 'per-action'
 							? 'Micro-billed per completed action over x402.'
 							: 'Flat subscription, cancel by revoking anytime.'}

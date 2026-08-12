@@ -1,6 +1,6 @@
 <script lang="ts">
 	/**
-	 * Data provenance badge — every metric on HIVE declares where it came from.
+	 * Data provenance badge, every metric on HIVE declares where it came from.
 	 * LIVE = read from BSC right now · ONCHAIN = decoded from historical txs
 	 * BACKTEST = simulated against real market data · CLAIMED = self-reported
 	 */
@@ -31,7 +31,7 @@
 			dot: 'bg-warn',
 			text: 'text-sub',
 			label: 'CLAIMED',
-			title: 'Self-reported by the agent operator — not yet verified'
+			title: 'Self-reported by the agent operator, not yet verified'
 		},
 		testnet: {
 			dot: 'bg-accent-soft',

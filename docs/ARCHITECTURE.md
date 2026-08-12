@@ -29,13 +29,13 @@ Browser (Svelte 5 runes)
 
 ## Design decisions
 
-**One multicall, one cache.** Every LIVE number flows through a single batched `eth_call` per 15s window regardless of concurrent viewers — judging traffic can't rate-limit the public RPCs. If a refresh fails, the last snapshot serves rather than erroring.
+**One multicall, one cache.** Every LIVE number flows through a single batched `eth_call` per 15s window regardless of concurrent viewers, judging traffic can't rate-limit the public RPCs. If a refresh fails, the last snapshot serves rather than erroring.
 
 **Provenance as a first-class type.** `'live' | 'onchain' | 'backtest' | 'claimed'` is part of the agent domain model, rendered as a badge beside every number it qualifies. Honest data beats impressive data.
 
-**Deterministic simulation, indexer-shaped.** Backtest curves and work logs derive from each agent's seed (mulberry32) — stable across reloads, shaped by the agent's real risk/return profile, and typed identically to what a Ponder indexer will emit from mainnet events. Swapping the generator for the indexer touches zero components.
+**Deterministic simulation, indexer-shaped.** Backtest curves and work logs derive from each agent's seed (mulberry32), stable across reloads, shaped by the agent's real risk/return profile, and typed identically to what a Ponder indexer will emit from mainnet events. Swapping the generator for the indexer touches zero components.
 
-**Sessions mirror Altana Keystore.** A grant stores `sessionKey`, spend cap, allowlist, expiry, owner — the exact fields the on-chain registry holds. The localStorage transport is the MVP stand-in; the wizard's `personal_sign` step becomes the Keystore registration transaction.
+**Sessions mirror Altana Keystore.** A grant stores `sessionKey`, spend cap, allowlist, expiry, owner, the exact fields the on-chain registry holds. The localStorage transport is the MVP stand-in; the wizard's `personal_sign` step becomes the Keystore registration transaction.
 
 **Zero-key deployment.** Public BSC RPCs + keyless market data = nothing to expire or leak. Deploys on any Node host or Vercel with `npm run build`.
 

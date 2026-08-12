@@ -6,6 +6,7 @@
 	import { cubicOut } from 'svelte/easing';
 	import { theme } from '$lib/stores/theme.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
+	import Logo from '$lib/components/ui/Logo.svelte';
 	import WalletButton from '$lib/components/wallet/WalletButton.svelte';
 
 	let { children } = $props();
@@ -56,15 +57,16 @@
 				? 'h-[52px] max-w-[960px] px-2.5 sm:px-3'
 				: 'h-[72px] max-w-[1140px] px-3.5 sm:px-5'}"
 		>
-			<a href="/" class="group flex shrink-0 items-center gap-2.5 pl-1">
+			<a href="/" class="group flex shrink-0 items-center gap-2 pl-1">
 				<span
-					class="grid place-items-center rounded-xl bg-cta text-cta-fg transition-all duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-[-8deg] {scrolled
-						? 'size-8'
-						: 'size-10'}"
+					class="grid place-items-center text-cta transition-all duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-[-10deg]"
 				>
-					<Icon name="hive" size={scrolled ? 17 : 21} strokeWidth={1.6} />
+					<Logo size={scrolled ? 22 : 28} />
 				</span>
-				<span class="font-bold tracking-tight transition-all duration-500 {scrolled ? 'text-[15px]' : 'text-[17px]'}">HIVE</span>
+				<span
+					class="font-extrabold tracking-[0.04em] text-cta transition-all duration-500 {scrolled
+						? 'text-[16px]'
+						: 'text-[19px]'}">HIVE</span>
 				<span
 					class="mt-0.5 hidden rounded-full border border-line bg-card px-2 py-0.5 text-[9px] font-bold tracking-[0.08em] text-sub transition-all duration-300 md:inline {scrolled
 						? 'w-0 scale-90 overflow-hidden border-transparent px-0 opacity-0'

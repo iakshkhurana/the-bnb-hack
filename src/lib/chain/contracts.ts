@@ -88,6 +88,6 @@ export const VTOKENS: Record<string, { address: Address; label: string; underlyi
 /**
  * BSC produces a block every ~0.75s since the Maxwell hardfork (June 2025).
  * Venus per-block rates are annualised against this cadence, then
- * sanity-clamped — see market service.
+ * sanity-clamped, see market service.
  */
 export const BSC_BLOCKS_PER_YEAR = 42_048_000;

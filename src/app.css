@@ -5,33 +5,33 @@
 	--font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
 	/* surfaces */
-	--color-page: #f3f3f4;
+	--color-page: #f5f5f5;
 	--color-card: #ffffff;
-	--color-night: #0c0d10;
-	--color-night-2: #17181d;
+	--color-night: #12151c;
+	--color-night-2: #1e2329;
 
 	/* ink */
-	--color-ink: #0b0c0f;
-	--color-sub: #5f6672;
-	--color-faint: #979da8;
-	--color-line: rgb(11 12 15 / 0.07);
-	--color-line-strong: rgb(11 12 15 / 0.12);
+	--color-ink: #181a20;
+	--color-sub: #474d57;
+	--color-faint: #929aa5;
+	--color-line: rgb(24 26 32 / 0.08);
+	--color-line-strong: rgb(24 26 32 / 0.14);
 
-	/* primary action — black in light, Binance yellow in dark */
-	--color-cta: #0b0c0f;
-	--color-cta-fg: #ffffff;
+	/* primary action: Binance yellow in both themes */
+	--color-cta: #f0b90b;
+	--color-cta-fg: #181a20;
 
-	/* validated blue ramp (data + accent) */
-	--color-accent: #2a78d6;
-	--color-accent-deep: #0d366b;
-	--color-accent-soft: #86b6ef;
-	--color-accent-tint: #cde2fb;
+	/* accent: yellow family (darker step for text on light) */
+	--color-accent: #c99400;
+	--color-accent-deep: #8f6a00;
+	--color-accent-soft: #f0b90b;
+	--color-accent-tint: rgb(240 185 11 / 0.14);
 
-	/* status (reserved) */
-	--color-good: #0ca30c;
-	--color-good-text: #006300;
+	/* status (Binance green / red) */
+	--color-good: #0ecb81;
+	--color-good-text: #03a66d;
 	--color-warn: #fab219;
-	--color-crit: #d03b3b;
+	--color-crit: #dc3052;
 
 	--radius-card: 20px;
 	--radius-inner: 14px;
@@ -69,8 +69,8 @@
 
 /* non-utility chart vars */
 :root {
-	--spark-stroke: #2a78d6;
-	--heat-zero: #eef0f3;
+	--spark-stroke: #d9a509;
+	--heat-zero: #efeff1;
 }
 
 /* ═══ Dark mode — Binance black & yellow ═══ */
@@ -94,8 +94,8 @@
 	--color-accent-soft: #d9a509;
 	--color-accent-tint: rgb(240 185 11 / 0.14);
 
-	--color-good: #2ebd85;
-	--color-good-text: #2ebd85;
+	--color-good: #0ecb81;
+	--color-good-text: #0ecb81;
 	--color-crit: #f6465d;
 
 	--shadow-card: 0 0 0 1px rgb(255 255 255 / 0.06), 0 8px 24px -12px rgb(0 0 0 / 0.5);

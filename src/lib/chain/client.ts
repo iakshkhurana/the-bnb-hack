@@ -1,5 +1,5 @@
 /**
- * BSC public clients — keyless, multi-RPC with automatic fallback.
+ * BSC public clients, keyless, multi-RPC with automatic fallback.
  * Every number HIVE shows as LIVE flows through these clients.
  */
 import { createPublicClient, fallback, http } from 'viem';

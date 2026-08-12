@@ -1,5 +1,5 @@
 <script lang="ts">
-	/** Animated number — counts from 0 on mount, then eases to any new value. */
+	/** Animated number, counts from 0 on mount, then eases to any new value. */
 	import { onMount } from 'svelte';
 
 	let {

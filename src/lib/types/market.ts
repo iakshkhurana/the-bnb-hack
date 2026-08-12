@@ -35,7 +35,7 @@ export interface VenusMarket {
 
 export interface MarketSnapshot {
 	ok: boolean;
-	at: number; // ms — when this snapshot was read
+	at: number; // ms, when this snapshot was read
 	block: number;
 	feeds: FeedQuote[];
 	pools: PoolState[];

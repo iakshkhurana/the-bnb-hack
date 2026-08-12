@@ -1,4 +1,4 @@
-/** Theme store — light (default) / dark (Binance black & yellow). */
+/** Theme store, light (default) / dark (Binance black & yellow). */
 import { browser } from '$app/environment';
 
 class Theme {

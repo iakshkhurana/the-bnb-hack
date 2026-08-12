@@ -1,14 +1,14 @@
 /**
  * Deterministic performance engine.
  * Backtest curves, activity logs and heatmaps are generated from each
- * agent's seed — stable across reloads, honestly labelled BACKTEST in the
+ * agent's seed, stable across reloads, honestly labelled BACKTEST in the
  * UI, and shaped by the agent's real risk/return profile. The interfaces
  * here are exactly what a Ponder indexer will feed once agents run on
- * mainnet — swap the generator, keep every component.
+ * mainnet, swap the generator, keep every component.
  */
 import type { Agent, Category } from './types';
 
-/** mulberry32 — tiny deterministic PRNG */
+/** mulberry32, tiny deterministic PRNG */
 function rng(seed: number): () => number {
 	let a = seed >>> 0;
 	return () => {
@@ -67,7 +67,7 @@ const TEMPLATES: Record<Category, { kind: string; summary: string; detail: strin
 		{
 			kind: 'Widen',
 			summary: 'Widened range on volatility spike',
-			detail: 'Realised volatility crossed threshold — range width increased to reduce churn'
+			detail: 'Realised volatility crossed threshold, range width increased to reduce churn'
 		}
 	],
 	grid: [
@@ -84,19 +84,19 @@ const TEMPLATES: Record<Category, { kind: string; summary: string; detail: strin
 		{
 			kind: 'Recentre',
 			summary: 'Grid rebuilt around new price',
-			detail: 'Price exited outer band — all levels cancelled and rebuilt around spot'
+			detail: 'Price exited outer band, all levels cancelled and rebuilt around spot'
 		}
 	],
 	yield: [
 		{
 			kind: 'Migrate',
 			summary: 'Moved liquidity to higher APR venue',
-			detail: 'Ranking flipped and spread cleared migration cost — capital rerouted'
+			detail: 'Ranking flipped and spread cleared migration cost, capital rerouted'
 		},
 		{
 			kind: 'Harvest',
 			summary: 'Claimed and compounded rewards',
-			detail: 'Pending rewards exceeded gas multiple — claimed, swapped, re-deposited'
+			detail: 'Pending rewards exceeded gas multiple, claimed, swapped, re-deposited'
 		},
 		{
 			kind: 'Scan',
@@ -107,13 +107,13 @@ const TEMPLATES: Record<Category, { kind: string; summary: string; detail: strin
 	health: [
 		{
 			kind: 'Heartbeat',
-			summary: 'Health factor checked — safe',
+			summary: 'Health factor checked, safe',
 			detail: 'HF read on-chain, above target floor; no action required'
 		},
 		{
 			kind: 'TopUp',
 			summary: 'Collateral topped up',
-			detail: 'HF drifted under stage threshold — reserve funds deposited as collateral'
+			detail: 'HF drifted under stage threshold, reserve funds deposited as collateral'
 		},
 		{
 			kind: 'Repay',
@@ -123,7 +123,7 @@ const TEMPLATES: Record<Category, { kind: string; summary: string; detail: strin
 	]
 };
 
-/** Recent activity log — most recent first. */
+/** Recent activity log, most recent first. */
 export function activityLog(agent: Agent, count = 14): ActivityEntry[] {
 	const rand = rng(agent.seed * 7 + 13);
 	const templates = TEMPLATES[agent.category];
@@ -151,7 +151,7 @@ export function activityLog(agent: Agent, count = 14): ActivityEntry[] {
 	return out;
 }
 
-/** Weekly activity heatmap — `weeks` columns × 7 rows, action counts. */
+/** Weekly activity heatmap, `weeks` columns × 7 rows, action counts. */
 export function activityHeatmap(agent: Agent, weeks = 18): number[][] {
 	const rand = rng(agent.seed * 31 + 7);
 	const perDay = agent.metrics.actions30d / 30;

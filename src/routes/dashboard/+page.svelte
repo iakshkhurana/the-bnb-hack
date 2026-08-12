@@ -64,14 +64,14 @@
 </script>
 
 <svelte:head>
-	<title>Mission Control — HIVE</title>
+	<title>Mission Control · HIVE</title>
 </svelte:head>
 
 <div class="py-4">
 	<div class="mb-6">
 		<h1 class="text-3xl font-bold tracking-tight">Mission Control</h1>
 		<p class="mt-1 text-[14px] text-sub">
-			Everything your agents may do, are doing, and have spent — revocable in one click.
+			Everything your agents may do, are doing, and have spent, revocable in one click.
 		</p>
 	</div>
 
@@ -83,7 +83,7 @@
 			<h2 class="text-lg font-bold">Connect to see your workforce</h2>
 			<p class="mx-auto mt-1 max-w-sm text-[13px] text-sub">
 				Your sessions live with your address. No wallet installed? Connect starts a demo account
-				— the full journey still works.
+				and the full journey still works.
 			</p>
 			<div class="mt-5">
 				<Button variant="primary" size="lg" onclick={() => wallet.connect()}>
@@ -98,7 +98,7 @@
 			</span>
 			<h2 class="text-lg font-bold">No agents on your payroll yet</h2>
 			<p class="mx-auto mt-1 max-w-sm text-[13px] text-sub">
-				Hire your first agent from the marketplace — you set the spend cap, the contracts it may
+				Hire your first agent from the marketplace, you set the spend cap, the contracts it may
 				touch, and when its permission dies.
 			</p>
 			<div class="mt-5">
@@ -139,7 +139,7 @@
 					<div>
 						<p class="text-[11px] text-white/40">Next expiry</p>
 						<p class="tabular mt-0.5 text-xl font-bold">
-							{active.length ? countdown(Math.min(...active.map((s) => s.expiresAt))) : '—'}
+							{active.length ? countdown(Math.min(...active.map((s) => s.expiresAt))) : '-'}
 						</p>
 					</div>
 				</div>
@@ -192,7 +192,7 @@
 										<div class="h-full rounded-full transition-all duration-1000 {barColor(p)}" style="width: {p}%"></div>
 									</div>
 									<p class="mt-1 text-[11px] text-faint">
-										Hard ceiling — the session key cannot exceed it. {s.allowlist.length} contract{s.allowlist.length > 1 ? 's' : ''} allowlisted.
+										Hard ceiling, the session key cannot exceed it. {s.allowlist.length} contract{s.allowlist.length > 1 ? 's' : ''} allowlisted.
 									</p>
 								</div>
 
@@ -213,7 +213,7 @@
 							<div class="flex w-full shrink-0 gap-2 sm:w-auto sm:flex-col">
 								{#if confirmRevoke === s.id}
 									<Button variant="danger" size="sm" onclick={() => { sessionStore.revoke(s.id); confirmRevoke = null; }}>
-										Confirm — fire agent
+										Confirm, fire agent
 									</Button>
 									<Button variant="ghost" size="sm" onclick={() => (confirmRevoke = null)}>Keep</Button>
 								{:else}
