@@ -5,7 +5,7 @@
 		data,
 		width = 120,
 		height = 36,
-		stroke = '#2a78d6'
+		stroke = 'var(--spark-stroke)'
 	}: { data: EquityPoint[]; width?: number; height?: number; stroke?: string } = $props();
 
 	const path = $derived.by(() => {

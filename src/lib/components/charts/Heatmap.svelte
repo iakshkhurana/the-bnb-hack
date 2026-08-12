@@ -7,7 +7,7 @@
 
 	// sequential blue steps from the validated palette
 	const RAMP = ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#256abf', '#104281'];
-	const ZERO = '#eef0f3';
+	const ZERO = 'var(--heat-zero)';
 
 	const max = $derived(Math.max(1, ...data.flat()));
 
@@ -74,7 +74,7 @@
 	</svg>
 	{#if hover}
 		<div
-			class="pointer-events-none absolute z-10 -translate-x-1/2 rounded-full bg-ink px-2.5 py-1 text-[10px] font-semibold text-white shadow-card"
+			class="pointer-events-none absolute z-10 -translate-x-1/2 rounded-full bg-ink px-2.5 py-1 text-[10px] font-semibold text-page shadow-card"
 			style="left: {hover.week * (CELL + GAP) + CELL / 2}px; top: {hover.day * (CELL + GAP) - 26}px"
 		>
 			{hover.v}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { theme } from '$lib/stores/theme.svelte';
 
 	interface Candle {
 		time: number;
@@ -16,6 +17,7 @@
 	}: { data: Candle[]; gridLevels?: number[]; height?: number } = $props();
 
 	let el: HTMLDivElement;
+	let ready = $state(false);
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let chart: any = null;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,17 +25,25 @@
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let priceLines: any[] = [];
 
-	function drawLevels() {
+	const palette = $derived({
+		text: theme.mode === 'dark' ? 'rgba(255,255,255,0.5)' : '#898781',
+		grid: theme.mode === 'dark' ? 'rgba(255,255,255,0.07)' : '#eef0f3',
+		up: theme.mode === 'dark' ? '#2ebd85' : '#0ca30c',
+		down: theme.mode === 'dark' ? '#f6465d' : '#d03b3b',
+		level: theme.mode === 'dark' ? 'rgba(240,185,11,0.5)' : 'rgba(42,120,214,0.45)'
+	});
+
+	function drawLevels(levels: number[]) {
 		for (const line of priceLines) series?.removePriceLine(line);
 		priceLines = [];
-		for (const [i, level] of gridLevels.entries()) {
+		for (const [i, level] of levels.entries()) {
 			priceLines.push(
 				series.createPriceLine({
 					price: level,
-					color: 'rgba(42,120,214,0.45)',
+					color: palette.level,
 					lineWidth: 1,
-					lineStyle: 3, // dotted
-					axisLabelVisible: i === 0 || i === gridLevels.length - 1,
+					lineStyle: 3,
+					axisLabelVisible: i === 0 || i === levels.length - 1,
 					title: ''
 				})
 			);
@@ -42,61 +52,75 @@
 
 	onMount(() => {
 		let disposed = false;
-		let ro: ResizeObserver | null = null;
 
 		(async () => {
-			const { createChart, CandlestickSeries, ColorType } = await import('lightweight-charts');
-			if (disposed) return;
+			try {
+				const { createChart, CandlestickSeries, ColorType } = await import('lightweight-charts');
+				if (disposed) return;
 
-			chart = createChart(el, {
-				height,
-				layout: {
-					background: { type: ColorType.Solid, color: 'transparent' },
-					textColor: '#898781',
-					fontFamily: "'Inter Variable', system-ui, sans-serif",
-					fontSize: 11
-				},
-				grid: {
-					vertLines: { visible: false },
-					horzLines: { color: '#eef0f3' }
-				},
-				rightPriceScale: { borderVisible: false },
-				timeScale: { borderVisible: false, timeVisible: true },
-				crosshair: {
-					vertLine: { color: '#c3c2b7', labelVisible: true },
-					horzLine: { color: '#c3c2b7' }
-				}
-			});
+				chart = createChart(el, {
+					autoSize: true,
+					layout: {
+						background: { type: ColorType.Solid, color: 'transparent' },
+						textColor: palette.text,
+						fontFamily: "'Inter Variable', system-ui, sans-serif",
+						fontSize: 11
+					},
+					grid: {
+						vertLines: { visible: false },
+						horzLines: { color: palette.grid }
+					},
+					rightPriceScale: { borderVisible: false },
+					timeScale: { borderVisible: false, timeVisible: true }
+				});
 
-			series = chart.addSeries(CandlestickSeries, {
-				upColor: '#0ca30c',
-				downColor: '#d03b3b',
-				borderUpColor: '#0ca30c',
-				borderDownColor: '#d03b3b',
-				wickUpColor: '#0ca30c',
-				wickDownColor: '#d03b3b'
-			});
-			series.setData(data);
-			drawLevels();
-			chart.timeScale().fitContent();
+				series = chart.addSeries(CandlestickSeries, {
+					upColor: palette.up,
+					downColor: palette.down,
+					borderUpColor: palette.up,
+					borderDownColor: palette.down,
+					wickUpColor: palette.up,
+					wickDownColor: palette.down
+				});
 
-			ro = new ResizeObserver(() => chart?.applyOptions({ width: el.clientWidth }));
-			ro.observe(el);
+				ready = true;
+			} catch (err) {
+				console.error('[CandleChart] init failed', err);
+			}
 		})();
 
 		return () => {
 			disposed = true;
-			ro?.disconnect();
 			chart?.remove();
+			chart = null;
+			series = null;
 		};
 	});
 
 	$effect(() => {
-		if (series && data.length) {
-			series.setData(data);
-			drawLevels();
-			chart?.timeScale().fitContent();
-		}
+		if (!ready || !series) return;
+		const candles = $state.snapshot(data) as Candle[];
+		const levels = $state.snapshot(gridLevels) as number[];
+		if (!candles.length) return;
+		series.setData(candles);
+		drawLevels(levels);
+		chart?.timeScale().fitContent();
+	});
+
+	$effect(() => {
+		if (!ready || !chart) return;
+		chart.applyOptions({
+			layout: { textColor: palette.text },
+			grid: { horzLines: { color: palette.grid } }
+		});
+		series?.applyOptions({
+			upColor: palette.up,
+			downColor: palette.down,
+			borderUpColor: palette.up,
+			borderDownColor: palette.down,
+			wickUpColor: palette.up,
+			wickDownColor: palette.down
+		});
 	});
 </script>
 
