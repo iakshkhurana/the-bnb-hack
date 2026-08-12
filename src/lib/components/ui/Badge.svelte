@@ -52,7 +52,7 @@
 
 <span
 	title={s.title}
-	class="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-2 py-0.5 text-[10px] font-bold tracking-wide {s.text} {cls}"
+	class="inline-flex items-center gap-1.5 rounded-full border border-line bg-card px-2 py-0.5 text-[10px] font-bold tracking-wide {s.text} {cls}"
 >
 	<span class="size-1.5 rounded-full {s.dot}"></span>{s.label}
 </span>

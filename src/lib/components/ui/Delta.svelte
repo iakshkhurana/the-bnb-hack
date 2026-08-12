@@ -11,7 +11,7 @@
 
 {#if solid}
 	<span
-		class="tabular inline-flex items-center gap-0.5 rounded-full bg-ink px-2 py-0.5 text-[11px] font-semibold text-white"
+		class="tabular inline-flex items-center gap-0.5 rounded-full bg-cta px-2 py-0.5 text-[11px] font-semibold text-cta-fg"
 	>
 		{label}
 	</span>

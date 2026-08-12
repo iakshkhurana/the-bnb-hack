@@ -78,7 +78,7 @@
 
 {#if open}
 	<div
-		class="fixed inset-0 z-50 flex items-end justify-center bg-ink/40 p-0 backdrop-blur-[3px] sm:items-center sm:p-6"
+		class="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 backdrop-blur-[3px] sm:items-center sm:p-6"
 		transition:fade={{ duration: 200 }}
 		onclick={(e) => {
 			if (e.target === e.currentTarget) open = false;
@@ -134,7 +134,7 @@
 						max={agent.leash.spendCapBnb * 4}
 						step="0.05"
 						bind:value={spendCap}
-						class="flex-1 accent-ink"
+						class="flex-1 accent-cta"
 					/>
 					<span class="tabular w-24 text-right text-[15px] font-bold">{spendCap.toFixed(2)} BNB</span>
 				</div>
@@ -150,8 +150,8 @@
 							onclick={() => (expiryDays = d)}
 							class="flex-1 rounded-full border py-2 text-[13px] font-semibold transition-colors {expiryDays ===
 							d
-								? 'border-ink bg-ink text-white'
-								: 'border-line bg-white text-sub hover:text-ink'}"
+								? 'border-cta bg-cta text-cta-fg'
+								: 'border-line bg-card text-sub hover:text-ink'}"
 						>
 							{d}d
 						</button>
@@ -166,9 +166,9 @@
 				<div class="mb-6 space-y-2">
 					{#each agent.leash.allowlist as item, i (item.address)}
 						<label
-							class="flex cursor-pointer items-center gap-3 rounded-2xl border border-line bg-white p-3 transition-colors has-checked:border-accent"
+							class="flex cursor-pointer items-center gap-3 rounded-2xl border border-line bg-card p-3 transition-colors has-checked:border-accent"
 						>
-							<input type="checkbox" bind:checked={checked[i]} class="size-4 accent-ink" />
+							<input type="checkbox" bind:checked={checked[i]} class="size-4 accent-cta" />
 							<span class="min-w-0">
 								<span class="block text-[13px] font-semibold">{item.label}</span>
 								<span class="tabular block truncate text-[11px] text-faint">{item.address}</span>

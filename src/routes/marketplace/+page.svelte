@@ -96,7 +96,7 @@
 				type="search"
 				placeholder="Search agents, venues, operators…"
 				bind:value={query}
-				class="h-10 w-full rounded-full border border-line bg-white pr-4 pl-10 text-[13px] outline-none placeholder:text-faint focus:border-accent"
+				class="h-10 w-full rounded-full border border-line bg-card pr-4 pl-10 text-[13px] outline-none placeholder:text-faint focus:border-accent"
 			/>
 		</label>
 	</div>
@@ -107,8 +107,8 @@
 			<button
 				onclick={() => setCategory('all')}
 				class="rounded-full px-4 py-1.5 text-[13px] font-semibold transition-colors {category === 'all'
-					? 'bg-ink text-white'
-					: 'border border-line bg-white text-sub hover:text-ink'}"
+					? 'bg-cta text-cta-fg'
+					: 'border border-line bg-card text-sub hover:text-ink'}"
 			>
 				All
 			</button>
@@ -117,8 +117,8 @@
 					onclick={() => setCategory(c)}
 					class="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-semibold transition-colors {category ===
 					c
-						? 'bg-ink text-white'
-						: 'border border-line bg-white text-sub hover:text-ink'}"
+						? 'bg-cta text-cta-fg'
+						: 'border border-line bg-card text-sub hover:text-ink'}"
 				>
 					<Icon name={CATEGORY_META[c].icon} size={14} />
 					{CATEGORY_META[c].label}
@@ -129,7 +129,7 @@
 			Sort
 			<select
 				bind:value={sort}
-				class="h-9 rounded-full border border-line bg-white px-3 text-[13px] font-semibold text-ink outline-none"
+				class="h-9 rounded-full border border-line bg-card px-3 text-[13px] font-semibold text-ink outline-none"
 			>
 				{#each Object.entries(SORTS) as [key, s] (key)}
 					<option value={key}>{s.label}</option>
@@ -139,9 +139,9 @@
 	</div>
 
 	{#if category !== 'all'}
-		<div class="mb-6 rounded-card border border-line bg-white p-5 shadow-card">
+		<div class="mb-6 rounded-card border border-line bg-card p-5 shadow-card">
 			<div class="flex items-start gap-4">
-				<span class="grid size-11 shrink-0 place-items-center rounded-2xl bg-ink text-white">
+				<span class="grid size-11 shrink-0 place-items-center rounded-2xl bg-cta text-cta-fg">
 					<Icon name={CATEGORY_META[category].icon} size={20} />
 				</span>
 				<div>
@@ -169,7 +169,7 @@
 			{/each}
 		</div>
 	{:else}
-		<div class="rounded-card border border-line bg-white p-12 text-center shadow-card">
+		<div class="rounded-card border border-line bg-card p-12 text-center shadow-card">
 			<p class="text-[15px] font-semibold">No agents match “{query}”</p>
 			<p class="mt-1 text-[13px] text-sub">Try a different term, or clear the category filter.</p>
 		</div>
@@ -199,7 +199,7 @@
 <!-- compare modal -->
 {#if compareOpen}
 	<div
-		class="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4 backdrop-blur-[3px]"
+		class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-[3px]"
 		transition:fade={{ duration: 200 }}
 		onclick={(e) => e.target === e.currentTarget && (compareOpen = false)}
 		onkeydown={(e) => e.key === 'Escape' && (compareOpen = false)}

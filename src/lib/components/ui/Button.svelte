@@ -23,14 +23,14 @@
 
 	const variants: Record<Variant, string> = {
 		primary:
-			'bg-ink text-white shadow-card hover:bg-night-2 hover:-translate-y-px hover:shadow-lift active:translate-y-0 active:scale-[0.98]',
+			'bg-cta text-cta-fg shadow-card hover:opacity-90 hover:-translate-y-px hover:shadow-lift active:translate-y-0 active:scale-[0.98]',
 		accent:
-			'bg-accent text-white shadow-card hover:bg-accent-deep hover:-translate-y-px hover:shadow-lift active:translate-y-0 active:scale-[0.98]',
+			'bg-accent text-cta-fg shadow-card hover:bg-accent-deep hover:-translate-y-px hover:shadow-lift active:translate-y-0 active:scale-[0.98]',
 		ghost:
-			'bg-white/60 text-ink border border-line backdrop-blur-sm hover:border-line-strong hover:bg-white active:scale-[0.98]',
+			'bg-card/60 text-ink border border-line backdrop-blur-sm hover:border-line-strong hover:bg-card active:scale-[0.98]',
 		danger:
 			'bg-crit text-white shadow-card hover:-translate-y-px hover:opacity-90 hover:shadow-lift active:translate-y-0 active:scale-[0.98]',
-		light: 'bg-white text-ink shadow-card hover:bg-accent-tint active:scale-[0.98]'
+		light: 'bg-white text-[#0b0c0f] shadow-card hover:opacity-90 active:scale-[0.98]'
 	};
 
 	const sizes = {

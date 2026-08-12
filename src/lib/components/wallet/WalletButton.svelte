@@ -12,7 +12,7 @@
 	<div class="relative">
 		<button
 			onclick={() => (open = !open)}
-			class="flex h-9 items-center gap-2 rounded-full border border-line bg-white pr-3.5 pl-2 text-[13px] font-semibold transition-colors hover:bg-page"
+			class="flex h-9 items-center gap-2 rounded-full border border-line bg-card pr-3.5 pl-2 text-[13px] font-semibold transition-colors hover:bg-page"
 		>
 			<span class="grid size-6 place-items-center rounded-full bg-accent-tint text-accent-deep">
 				<Icon name="wallet" size={13} />
@@ -24,7 +24,7 @@
 		</button>
 		{#if open}
 			<div
-				class="absolute top-11 right-0 z-50 w-56 rounded-2xl bg-white p-2 shadow-rail"
+				class="absolute top-11 right-0 z-50 w-56 rounded-2xl bg-card p-2 shadow-rail"
 				transition:fly={{ y: 6, duration: 220, easing: cubicOut }}
 			>
 				{#if !wallet.onBsc}
@@ -54,7 +54,7 @@
 	<button
 		onclick={() => wallet.connect()}
 		disabled={wallet.connecting}
-		class="flex h-9 items-center gap-2 rounded-full bg-ink px-4 text-[13px] font-semibold text-white transition-all hover:bg-night-2 active:scale-[0.98] disabled:opacity-50"
+		class="flex h-9 items-center gap-2 rounded-full bg-cta px-4 text-[13px] font-semibold text-cta-fg transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
 	>
 		<Icon name="wallet" size={14} />
 		{wallet.connecting ? 'Connecting…' : 'Connect Wallet'}

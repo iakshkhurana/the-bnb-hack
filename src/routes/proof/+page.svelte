@@ -15,7 +15,7 @@
 <div class="py-4">
 	<!-- header -->
 	<div class="mb-8 max-w-2xl">
-		<p class="mb-3 inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 text-[12px] font-semibold text-sub">
+		<p class="mb-3 inline-flex items-center gap-2 rounded-full border border-line bg-card px-3.5 py-1.5 text-[12px] font-semibold text-sub">
 			<Icon name="doc" size={13} /> Agent Advantage Report
 		</p>
 		<h1 class="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -45,11 +45,11 @@
 			{@const agent = byId(task.agentId)}
 			<section>
 				<div class="mb-4 flex flex-wrap items-center gap-2.5">
-					<span class="grid size-8 place-items-center rounded-full bg-ink text-[13px] font-bold text-white">
+					<span class="grid size-8 place-items-center rounded-full bg-cta text-[13px] font-bold text-cta-fg">
 						{ti + 1}
 					</span>
 					<h2 class="text-xl font-bold tracking-tight">{task.title}</h2>
-					<span class="rounded-full border border-line bg-white px-2.5 py-0.5 text-[11px] font-bold text-sub">
+					<span class="rounded-full border border-line bg-card px-2.5 py-0.5 text-[11px] font-bold text-sub">
 						{task.category}
 					</span>
 					{#if task.highStakes}
@@ -64,7 +64,7 @@
 					<Card dark>
 						<div class="mb-3 flex items-center gap-2.5">
 							{#if agent}
-								<span class="grid size-9 place-items-center rounded-xl bg-white text-ink">
+								<span class="grid size-9 place-items-center rounded-xl bg-white text-[#0b0c0f]">
 									<Icon name={CATEGORY_META[agent.category].icon} size={16} />
 								</span>
 							{/if}

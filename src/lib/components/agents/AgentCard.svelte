@@ -30,7 +30,7 @@
 		: 'border-transparent'}"
 >
 	<div class="mb-3 flex items-start gap-3">
-		<span class="grid size-10 shrink-0 place-items-center rounded-xl bg-ink text-white">
+		<span class="grid size-10 shrink-0 place-items-center rounded-xl bg-cta text-cta-fg">
 			<Icon name={meta.icon} size={18} />
 		</span>
 		<div class="min-w-0">
@@ -48,7 +48,7 @@
 					type="checkbox"
 					checked={selected}
 					onchange={() => ontoggle?.(agent.id)}
-					class="size-3.5 accent-ink"
+					class="size-3.5 accent-cta"
 				/>
 				Compare
 			</label>
@@ -104,7 +104,7 @@
 		<span class="text-[12px] font-semibold text-sub">{agent.fee.label}</span>
 		<a
 			href="/agents/{agent.id}"
-			class="inline-flex items-center gap-1 rounded-full bg-ink px-4 py-1.5 text-[12px] font-semibold text-white transition-transform group-hover:scale-[1.03]"
+			class="inline-flex items-center gap-1 rounded-full bg-cta px-4 py-1.5 text-[12px] font-semibold text-cta-fg transition-transform group-hover:scale-[1.03]"
 		>
 			View & hire <Icon name="chevron-right" size={13} />
 		</a>

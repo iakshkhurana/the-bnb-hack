@@ -10,7 +10,7 @@
 
 <div class="grid min-h-[60vh] place-items-center py-16 text-center">
 	<div>
-		<span class="mx-auto mb-5 grid size-16 place-items-center rounded-card bg-ink text-white">
+		<span class="mx-auto mb-5 grid size-16 place-items-center rounded-card bg-cta text-cta-fg">
 			<Icon name="hive" size={28} />
 		</span>
 		<p class="tabular text-[13px] font-bold text-faint">{page.status}</p>
