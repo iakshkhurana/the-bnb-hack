@@ -12,6 +12,7 @@
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import AllocationBar from '$lib/components/charts/AllocationBar.svelte';
+	import CountUp from '$lib/components/ui/CountUp.svelte';
 
 	$effect(() => market.subscribe());
 
@@ -112,8 +113,12 @@
 			<Card dark>
 				<p class="text-[12px] font-medium text-white/50">Capital under agent authority</p>
 				<div class="mt-1 flex items-baseline gap-3">
-					<span class="tabular text-4xl font-bold">
-						{bnbUsd ? usd(totalCapBnb * bnbUsd) : `${totalCapBnb.toFixed(2)} BNB`}
+					<span class="text-4xl font-bold">
+						{#if bnbUsd}
+							<CountUp value={totalCapBnb * bnbUsd} format={(v) => usd(v)} />
+						{:else}
+							<CountUp value={totalCapBnb} format={(v) => `${v.toFixed(2)} BNB`} />
+						{/if}
 					</span>
 					<span class="tabular rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white/70">
 						{totalCapBnb.toFixed(2)} BNB total cap
@@ -126,8 +131,9 @@
 					</div>
 					<div>
 						<p class="text-[11px] text-white/40">Spent so far</p>
-						<p class="tabular mt-0.5 text-xl font-bold">
-							{totalSpentBnb.toFixed(4)} <span class="text-[12px] font-medium text-white/40">BNB</span>
+						<p class="mt-0.5 text-xl font-bold">
+							<CountUp value={totalSpentBnb} format={(v) => v.toFixed(4)} />
+							<span class="text-[12px] font-medium text-white/40">BNB</span>
 						</p>
 					</div>
 					<div>
@@ -158,13 +164,13 @@
 					{@const p = pctSpent(s)}
 					<Card>
 						<div class="flex flex-wrap items-start gap-4">
-							<span class="grid size-11 shrink-0 place-items-center rounded-2xl bg-ink text-white">
+							<span class="grid size-11 shrink-0 place-items-center rounded-2xl bg-cta text-cta-fg">
 								<Icon name={CATEGORY_META[agent.category].icon} size={19} />
 							</span>
 							<div class="min-w-0 flex-1">
 								<div class="flex flex-wrap items-center gap-2">
 									<a href="/agents/{agent.id}" class="text-[15px] font-bold hover:underline">{agent.name}</a>
-									<span class="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-2 py-0.5 text-[10px] font-bold text-good-text">
+									<span class="inline-flex items-center gap-1.5 rounded-full border border-line bg-card px-2 py-0.5 text-[10px] font-bold text-good-text">
 										<span class="size-1.5 animate-pulse rounded-full bg-good"></span>WORKING
 									</span>
 									<Badge kind="testnet" />
@@ -235,7 +241,7 @@
 				{#each past as s (s.id)}
 					{@const agent = byId(s.agentId)}
 					{#if agent}
-						<div class="flex flex-wrap items-center gap-3 rounded-card border border-line bg-white/60 px-5 py-3.5">
+						<div class="flex flex-wrap items-center gap-3 rounded-card border border-line bg-card/60 px-5 py-3.5">
 							<Icon name={CATEGORY_META[agent.category].icon} size={16} class="text-faint" />
 							<span class="text-[13px] font-semibold text-sub">{agent.name}</span>
 							<span class="rounded-full bg-page px-2 py-0.5 text-[10px] font-bold text-faint">

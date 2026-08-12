@@ -22,6 +22,7 @@
 	import CandleChart from '$lib/components/charts/CandleChart.svelte';
 	import Heatmap from '$lib/components/charts/Heatmap.svelte';
 	import HireModal from '$lib/components/hire/HireModal.svelte';
+	import CountUp from '$lib/components/ui/CountUp.svelte';
 
 	let { data } = $props();
 	const agent = $derived(data.agent);
@@ -76,7 +77,7 @@
 
 	<!-- ═══ Resume header ═══ -->
 	<div class="mb-6 flex flex-wrap items-start gap-5">
-		<span class="grid size-16 place-items-center rounded-card bg-ink text-white">
+		<span class="grid size-16 place-items-center rounded-card bg-cta text-cta-fg">
 			<Icon name={meta.icon} size={28} />
 		</span>
 		<div class="min-w-0 flex-1">
@@ -84,10 +85,10 @@
 				<h1 class="text-3xl font-bold tracking-tight">{agent.name}</h1>
 				<Badge kind={agent.network === 'mainnet' ? 'mainnet' : 'testnet'} />
 				{#if agent.erc8183}
-					<span class="rounded-full border border-line bg-white px-2 py-0.5 text-[10px] font-bold text-sub" title="Hireable agent-to-agent via ERC-8183">ERC-8183</span>
+					<span class="rounded-full border border-line bg-card px-2 py-0.5 text-[10px] font-bold text-sub" title="Hireable agent-to-agent via ERC-8183">ERC-8183</span>
 				{/if}
 				{#if agent.x402}
-					<span class="rounded-full border border-line bg-white px-2 py-0.5 text-[10px] font-bold text-sub" title="Sells its output per-call over x402/B402">x402</span>
+					<span class="rounded-full border border-line bg-card px-2 py-0.5 text-[10px] font-bold text-sub" title="Sells its output per-call over x402/B402">x402</span>
 				{/if}
 			</div>
 			<p class="mt-1 text-[15px] text-sub">{agent.tagline}</p>
@@ -138,11 +139,15 @@
 		</Card>
 		<Card class="!p-4">
 			<p class="text-[11px] font-medium text-faint">TVL managed</p>
-			<p class="tabular mt-1.5 text-xl font-bold">{usd(agent.metrics.tvlUsd, { compact: true })}</p>
+			<p class="mt-1.5 text-xl font-bold">
+				<CountUp value={agent.metrics.tvlUsd} format={(v) => usd(v, { compact: true })} />
+			</p>
 		</Card>
 		<Card class="!p-4">
 			<p class="text-[11px] font-medium text-faint">Uptime 90d</p>
-			<p class="tabular mt-1.5 text-xl font-bold">{agent.metrics.uptime}%</p>
+			<p class="mt-1.5 text-xl font-bold">
+				<CountUp value={agent.metrics.uptime} format={(v) => `${v.toFixed(1)}%`} />
+			</p>
 		</Card>
 	</div>
 

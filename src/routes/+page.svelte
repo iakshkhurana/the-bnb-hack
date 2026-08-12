@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { AGENTS, byCategory } from '$lib/agents/registry';
 	import { CATEGORIES, CATEGORY_META } from '$lib/agents/types';
 	import { market } from '$lib/stores/market.svelte';
@@ -14,6 +13,7 @@
 	import PillTabs from '$lib/components/ui/PillTabs.svelte';
 	import AreaChart from '$lib/components/charts/AreaChart.svelte';
 	import Sparkline from '$lib/components/charts/Sparkline.svelte';
+	import CountUp from '$lib/components/ui/CountUp.svelte';
 
 	$effect(() => market.subscribe());
 
@@ -40,9 +40,7 @@
 		}
 	}
 
-	onMount(() => loadHero(range));
 	$effect(() => {
-		void range;
 		loadHero(range);
 	});
 
@@ -68,7 +66,7 @@
 <section class="grid items-center gap-6 py-8 lg:grid-cols-[1.02fr_1fr] lg:gap-10 lg:py-12">
 	<div class="rise">
 		<p
-			class="mb-4 inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 text-[12px] font-semibold text-sub"
+			class="mb-4 inline-flex items-center gap-2 rounded-full border border-line bg-card px-3.5 py-1.5 text-[12px] font-semibold text-sub"
 		>
 			<span class="size-1.5 animate-pulse rounded-full bg-good"></span>
 			The agent labor market for BNB Chain
@@ -129,13 +127,15 @@
 
 <!-- ═══ Stat tiles ═══ -->
 <section class="rise grid grid-cols-2 gap-4 [animation-delay:200ms] lg:grid-cols-4">
-	{#each [{ icon: 'wallet', label: 'Under agent management', value: usd(totalTvl, { compact: true }) }, { icon: 'bolt', label: 'Actions last 30 days', value: num(totalActions, 0) }, { icon: 'users', label: 'Active hirers', value: num(totalUsers, 0) }, { icon: 'gas', label: 'Avg gas per action', value: usd(avgGas, { decimals: 2 }) }] as stat (stat.label)}
+	{#each [{ icon: 'wallet', label: 'Under agent management', value: totalTvl, format: (v: number) => usd(v, { compact: true }) }, { icon: 'bolt', label: 'Actions last 30 days', value: totalActions, format: (v: number) => num(v, 0) }, { icon: 'users', label: 'Active hirers', value: totalUsers, format: (v: number) => num(v, 0) }, { icon: 'gas', label: 'Avg gas per action', value: avgGas, format: (v: number) => usd(v, { decimals: 2 }) }] as stat (stat.label)}
 		<Card>
 			<div class="flex items-center gap-2 text-sub">
 				<Icon name={stat.icon} size={15} />
 				<p class="text-[12px] font-medium">{stat.label}</p>
 			</div>
-			<p class="tabular mt-2 text-2xl font-bold tracking-tight">{stat.value}</p>
+			<p class="mt-2 text-2xl font-bold tracking-tight">
+				<CountUp value={stat.value} format={stat.format} />
+			</p>
 		</Card>
 	{/each}
 </section>
@@ -158,7 +158,7 @@
 				class="group rounded-card border border-line bg-card p-6 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-rail"
 			>
 				<div class="mb-4 flex items-center justify-between">
-					<span class="grid size-11 place-items-center rounded-2xl bg-ink text-white">
+					<span class="grid size-11 place-items-center rounded-2xl bg-cta text-cta-fg">
 						<Icon name={door.meta.icon} size={20} />
 					</span>
 					<span class="rounded-full border border-line bg-page px-2.5 py-1 text-[11px] font-bold text-sub">
@@ -201,7 +201,7 @@
 			{#each [{ icon: 'key', title: 'Set the leash', text: 'Spend cap, contract allowlist, expiry. Sign once — the session key can do exactly this and nothing else.' }, { icon: 'bolt', title: 'The agent works', text: 'Every action lands on BSC under the session key. Watch budget burn and the work log in Mission Control.' }, { icon: 'revoke', title: 'Fire it anytime', text: 'One click revokes the session immediately. No support ticket, no cooldown, no residual authority.' }] as step, i (step.title)}
 				<div class="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
 					<div class="mb-3 flex items-center gap-3">
-						<span class="grid size-9 place-items-center rounded-full bg-white text-ink">
+						<span class="grid size-9 place-items-center rounded-full bg-white text-[#0b0c0f]">
 							<Icon name={step.icon} size={16} />
 						</span>
 						<span class="text-[11px] font-bold text-white/40">STEP {i + 1}</span>
