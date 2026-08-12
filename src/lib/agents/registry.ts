@@ -7,19 +7,19 @@ import type { Agent } from './types';
 
 const PCS_POSITION_MANAGER = {
 	label: 'PancakeSwap V3 Position Manager',
-	address: '0x46A15B0b27311cedF172AB29E4f4766fbE7F4364'
+	address: '0x46a15b0b27311cedf172ab29e4f4766fbe7f4364'
 };
 const PCS_ROUTER = {
 	label: 'PancakeSwap Smart Router',
-	address: '0x13f4EA83D0bd40E75C8222255bc855a974568Dd4'
+	address: '0x13f4ea83d0bd40e75c8222255bc855a974568dd4'
 };
 const VENUS_COMPTROLLER = {
 	label: 'Venus Comptroller',
-	address: '0xfD36E2c2a6789Db23113685031d7F16329158384'
+	address: '0xfd36e2c2a6789db23113685031d7f16329158384'
 };
-const VENUS_VBNB = { label: 'Venus vBNB', address: '0xA07c5b74C9B40447a954e1466938b865b6BBea36' };
-const VENUS_VUSDT = { label: 'Venus vUSDT', address: '0xfD5840Cd36d94D7229439859C0112a4185BC0255' };
-const VENUS_VUSDC = { label: 'Venus vUSDC', address: '0xecA88125a5ADbe82614ffC12D0DB554E2e2867C8' };
+const VENUS_VBNB = { label: 'Venus vBNB', address: '0xa07c5b74c9b40447a954e1466938b865b6bbea36' };
+const VENUS_VUSDT = { label: 'Venus vUSDT', address: '0xfd5840cd36d94d7229439859c0112a4185bc0255' };
+const VENUS_VUSDC = { label: 'Venus vUSDC', address: '0xeca88125a5adbe82614ffc12d0db554e2e2867c8' };
 
 export const AGENTS: Agent[] = [
 	// ── Rebalancing ────────────────────────────────────────────────

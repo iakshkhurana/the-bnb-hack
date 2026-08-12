@@ -125,8 +125,9 @@ async function readChain(fetchFn: typeof fetch): Promise<MarketSnapshot> {
 				: null;
 		const meta = POOLS[k];
 		const price = s ? sqrtPriceToPrice(s[0]) : 0;
-		// token1-per-token0 → USD: WBNB/USDT is already USD-ish; CAKE/WBNB needs BNB price.
-		const priceUsd = meta.token1 === 'WBNB' ? price * bnbUsd : price;
+		// raw price is token1-per-token0 (address sort order) → headline USD quote
+		const priceUsd =
+			price === 0 ? 0 : meta.usd === 'invert' ? 1 / price : price * bnbUsd;
 		return {
 			id: k,
 			label: meta.label,

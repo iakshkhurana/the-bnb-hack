@@ -25,47 +25,61 @@ export const vTokenAbi = parseAbi([
 
 /** Chainlink feeds (8 decimals) */
 export const FEEDS: Record<string, { address: Address; label: string }> = {
-	BNB: { address: '0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aee', label: 'BNB / USD' },
-	CAKE: { address: '0xB6064eD41d4f67e353768aA239cA86f4F73665a1', label: 'CAKE / USD' },
-	BTC: { address: '0x264990fbd0A4796A3E3d8E37C4d5F87a3aCa5Ebf', label: 'BTC / USD' },
-	ETH: { address: '0x9ef1B8c0E4F7dc8bF5719Ea496883DC6401d5b2e', label: 'ETH / USD' }
+	BNB: { address: '0x0567f2323251f0aab15c8dfb1967e4e8a7d42aee', label: 'BNB / USD' },
+	CAKE: { address: '0xb6064ed41d4f67e353768aa239ca86f4f73665a1', label: 'CAKE / USD' },
+	BTC: { address: '0x264990fbd0a4796a3e3d8e37c4d5f87a3aca5ebf', label: 'BTC / USD' },
+	ETH: { address: '0x9ef1b8c0e4f7dc8bf5719ea496883dc6401d5b2e', label: 'ETH / USD' }
 };
 
-/** PancakeSwap V3 pools the rebalancing / grid agents operate on */
+/**
+ * PancakeSwap V3 pools the rebalancing / grid agents operate on.
+ * token0/token1 follow on-chain address sort order; `usd` says how to turn
+ * the raw token1-per-token0 price into a USD quote for the pool's headline
+ * asset ('invert' → 1/price is already USD; 'in-bnb' → price × BNB/USD).
+ */
 export const POOLS: Record<
 	string,
-	{ address: Address; label: string; token0: string; token1: string; feeTier: string }
+	{
+		address: Address;
+		label: string;
+		token0: string;
+		token1: string;
+		feeTier: string;
+		usd: 'invert' | 'in-bnb';
+	}
 > = {
 	'wbnb-usdt': {
-		address: '0x36696169C63e42cd08ce11f5deeBbCeBae652050',
+		address: '0x36696169c63e42cd08ce11f5deebbcebae652050',
 		label: 'WBNB / USDT',
-		token0: 'WBNB',
-		token1: 'USDT',
-		feeTier: '0.05%'
+		token0: 'USDT',
+		token1: 'WBNB',
+		feeTier: '0.05%',
+		usd: 'invert'
 	},
 	'cake-wbnb': {
-		address: '0x133B3D95bAD5405d14d53473671200e9342896BF',
+		address: '0x133b3d95bad5405d14d53473671200e9342896bf',
 		label: 'CAKE / WBNB',
 		token0: 'CAKE',
 		token1: 'WBNB',
-		feeTier: '0.25%'
+		feeTier: '0.25%',
+		usd: 'in-bnb'
 	}
 };
 
 /** Venus core-pool vTokens the yield / health agents read */
 export const VTOKENS: Record<string, { address: Address; label: string; underlying: string }> = {
 	vBNB: {
-		address: '0xA07c5b74C9B40447a954e1466938b865b6BBea36',
+		address: '0xa07c5b74c9b40447a954e1466938b865b6bbea36',
 		label: 'Venus BNB',
 		underlying: 'BNB'
 	},
 	vUSDT: {
-		address: '0xfD5840Cd36d94D7229439859C0112a4185BC0255',
+		address: '0xfd5840cd36d94d7229439859c0112a4185bc0255',
 		label: 'Venus USDT',
 		underlying: 'USDT'
 	},
 	vUSDC: {
-		address: '0xecA88125a5ADbe82614ffC12D0DB554E2e2867C8',
+		address: '0xeca88125a5adbe82614ffc12d0db554e2e2867c8',
 		label: 'Venus USDC',
 		underlying: 'USDC'
 	}
