@@ -22,7 +22,7 @@
 	});
 
 	const META: Record<string, { src: string; contained?: boolean; chipBg?: string }> = {
-		BNB: { src: bnb, contained: true, chipBg: '#181a20' },
+		BNB: { src: bnb },
 		ETH: { src: eth, contained: true, chipBg: '#f0f1f5' },
 		USDT: { src: usdt },
 		USDC: { src: usdc },
