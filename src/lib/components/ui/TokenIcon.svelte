@@ -1,5 +1,16 @@
 <script lang="ts">
-	/** Flat token badge with brand color and glyph. Self-contained SVG. */
+	/**
+	 * Token logos: official brand marks (cryptologos.cc), vendored into
+	 * the repo. Diamond-shaped marks (BNB, ETH) sit in a circular chip so
+	 * every token renders uniformly; unknown symbols fall back to a letter.
+	 */
+	import bnb from '$lib/assets/tokens/bnb.svg';
+	import eth from '$lib/assets/tokens/eth.svg';
+	import usdt from '$lib/assets/tokens/usdt.svg';
+	import usdc from '$lib/assets/tokens/usdc.svg';
+	import btc from '$lib/assets/tokens/btc.svg';
+	import cake from '$lib/assets/tokens/cake.svg';
+
 	let { symbol, size = 24, class: cls = '' }: { symbol: string; size?: number; class?: string } =
 		$props();
 
@@ -10,44 +21,38 @@
 		return s;
 	});
 
-	const META: Record<string, { bg: string; fg: string; letter?: string; glyph?: 'bnb' | 'eth' }> = {
-		BNB: { bg: '#f0b90b', fg: '#181a20', glyph: 'bnb' },
-		ETH: { bg: '#627eea', fg: '#ffffff', glyph: 'eth' },
-		USDT: { bg: '#26a17b', fg: '#ffffff', letter: 'T' },
-		USDC: { bg: '#2775ca', fg: '#ffffff', letter: '$' },
-		BTC: { bg: '#f7931a', fg: '#ffffff', letter: 'B' },
-		CAKE: { bg: '#1fc7d4', fg: '#ffffff', letter: 'C' }
+	const META: Record<string, { src: string; contained?: boolean; chipBg?: string }> = {
+		BNB: { src: bnb, contained: true, chipBg: '#181a20' },
+		ETH: { src: eth, contained: true, chipBg: '#f0f1f5' },
+		USDT: { src: usdt },
+		USDC: { src: usdc },
+		BTC: { src: btc },
+		CAKE: { src: cake }
 	};
 
-	const m = $derived(
-		META[norm] ?? { bg: 'var(--color-night-2)', fg: '#ffffff', letter: norm.slice(0, 1) || '?' }
-	);
+	const meta = $derived(META[norm]);
+	const inner = $derived(Math.round(size * 0.62));
 </script>
 
-<svg width={size} height={size} viewBox="0 0 32 32" class="shrink-0 {cls}" aria-hidden="true">
-	<circle cx="16" cy="16" r="16" fill={m.bg} />
-	{#if m.glyph === 'bnb'}
-		<g fill={m.fg}>
-			<path d="M16 8.6 18.8 11.4 16 14.2 13.2 11.4Z" />
-			<path d="M10.4 14.2 13.2 17 10.4 19.8 7.6 17Z" />
-			<path d="M21.6 14.2 24.4 17 21.6 19.8 18.8 17Z" />
-			<path d="M16 19.8 18.8 22.6 16 25.4 13.2 22.6Z" />
-			<path d="M16 14.2 18.8 17 16 19.8 13.2 17Z" />
-		</g>
-	{:else if m.glyph === 'eth'}
-		<g fill={m.fg}>
-			<path d="M16 5.5 22 16.1 16 19.7 10 16.1Z" opacity="0.9" />
-			<path d="M16 21.2 22 17.6 16 26.5 10 17.6Z" opacity="0.75" />
-		</g>
-	{:else}
-		<text
-			x="16"
-			y="21.5"
-			text-anchor="middle"
-			font-size="15"
-			font-weight="800"
-			fill={m.fg}
-			font-family="'Inter Variable', system-ui, sans-serif">{m.letter}</text
-		>
-	{/if}
-</svg>
+{#if meta?.contained}
+	<span
+		class="grid shrink-0 place-items-center rounded-full {cls}"
+		style="width:{size}px;height:{size}px;background:{meta.chipBg}"
+	>
+		<img src={meta.src} alt={norm} style="width:{inner}px;height:{inner}px" />
+	</span>
+{:else if meta}
+	<img
+		src={meta.src}
+		alt={norm}
+		class="shrink-0 rounded-full {cls}"
+		style="width:{size}px;height:{size}px"
+	/>
+{:else}
+	<span
+		class="grid shrink-0 place-items-center rounded-full bg-night-2 font-extrabold text-white {cls}"
+		style="width:{size}px;height:{size}px;font-size:{Math.round(size * 0.45)}px"
+	>
+		{norm.slice(0, 1) || '?'}
+	</span>
+{/if}
